@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Ravion Pharma — Innovation With Care</title>
+
+    <meta name="description"
+        content="Ravion Pharma develops evidence-based pharmaceutical and nutraceutical formulations that support growth, immunity, and overall health across all age groups." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* =========================
+   RESET & ROOT
+========================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0d2b5e;
+            --secondary: #1f4e8c;
+            --accent: #2e86de;
+            --gold: #f0c040;
+            --light: #f6f9ff;
+            --text: #2d3748;
+            --muted: #718096;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .08);
+            --radius: 18px;
+            --brand-primary: #0a192f;
+            /* Deep Trust Corporate Navy */
+            --brand-secondary: #0ea5e9;
+            /* Precision Clinical Cyan */
+            --brand-accent: #10b981;
+            /* Pediatric Vitality Emerald */
+            --text-main: #1e293b;
+            /* High-readability slate */
+            --text-muted: #64748b;
+            /* Soft secondary body text */
+            --bg-light: #f8fafc;
+            /* Clean pharmaceutical grey-white */
+            --bg-pure: #ffffff;
+            --premium-shadow: 0 20px 40px -15px rgba(10, 25, 47, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+            --hover-shadow: 0 30px 60px -15px rgba(14, 165, 233, 0.12), 0 10px 20px -5px rgba(10, 25, 47, 0.04);
+            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .wrap {
+            width: min(1200px, 92%);
+            margin: auto;
+        }
+
+        /* =========================
+   HEADER
+========================= */
+
+        .hdr {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, .85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(15, 23, 42, .05);
+        }
+
+        .hdr-in {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 90px;
+        }
+
+        /* LOGO */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+
+        .brand-mark img {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+        }
+
+
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+
+        .brand-name {
+            font-size: 1.12rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #0d6f74;
+            line-height: 1;
+        }
+
+
+
+
+
+
+        .brand-tag {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #282E78;
+            margin-top: 4px;
+            opacity: 0.95;
+        }
+
+        .ft .brand-tag {
+            color: rgba(255, 255, 255, 0.78);
+        }
+
+        /* NAV */
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav a {
+            font-size: .95rem;
+            font-weight: 500;
+            color: #334155;
+            position: relative;
+            transition: .3s;
+        }
+
+        .nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 2px;
+            background: #0d6f74;
+            transition: .3s;
+        }
+
+        .nav a:hover {
+            color: #0d6f74;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ACTIONS */
+        .hdr-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hbg {
+            display: none;
+            font-size: 1.4rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* BUTTONS */
+        .btn-primary,
+        .btn1 {
+            background: linear-gradient(135deg, #1590ff, #0066d6);
+            color: #fff;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 999px;
+            font-weight: 700;
+            transition: .3s;
+            box-shadow: 0 10px 25px rgba(21, 144, 255, .25);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover,
+        .btn1:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary,
+        .btn2 {
+            border: 1.5px solid #cfe4ff;
+            color: #0b4f8a;
+            padding: 1rem 2rem;
+            border-radius: 999px;
+            font-weight: 600;
+            background: #fff;
+            transition: .3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-secondary:hover,
+        .btn2:hover {
+            background: #f3f9ff;
+        }
+
+        /* =========================
+   HERO
+========================= */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5fbff 0%, #eef6ff 100%);
+            padding: 120px 0 80px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at top right, rgba(46, 134, 222, .25), transparent 30%),
+                radial-gradient(circle at bottom left, rgba(240, 192, 64, .15), transparent 30%);
+        }
+
+        .hero-in {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+
+
+
+        .tag {
+            display: inline-block;
+            background: #e8f4ff;
+            color: #0d5ea8;
+            padding: .55rem 1rem;
+            border-radius: 30px;
+            font-size: .8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            color: var(--brand-primary);
+            letter-spacing: -0.04em;
+        }
+
+        .hero-content h1 span {
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            background: linear-gradient(90deg, var(--brand-secondary), var(--brand-accent));
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .hero-desc,
+        .hdesc {
+            color: #4d5b70;
+            line-height: 1.9;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons,
+        .hbtns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-image,
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-image img,
+        .hero-image-box img {
+            width: 100%;
+            max-width: 520px;
+            border-radius: 24px;
+            object-fit: cover;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .12);
+        }
+
+        .hero-image img {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-image-box {
+            width: 100%;
+            max-width: 520px;
+            overflow: hidden;
+            border-radius: 30px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, .35);
+        }
+
+        .hero-image-box img {
+            height: 620px;
+        }
+
+        .hero-cards {
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        .hbadge {
+            background: rgba(255, 255, 255, .12);
+            border: 1px solid rgba(255, 255, 255, .12);
+            backdrop-filter: blur(12px);
+            border-radius: 22px;
+            padding: 1.4rem;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
+        }
+
+        .bnum {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: .4rem;
+        }
+
+        .btxt {
+            line-height: 1.6;
+            opacity: .9;
+            font-size: .9rem;
+        }
+
+        .hero-bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: .25;
+        }
+
+        .hero-bg-circle.one {
+            width: 320px;
+            height: 320px;
+            background: #00c6ff;
+            top: -100px;
+            left: -100px;
+        }
+
+        .hero-bg-circle.two {
+            width: 420px;
+            height: 420px;
+            background: #0072ff;
+            bottom: -160px;
+            right: -140px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-12px)
+            }
+
+            100% {
+                transform: translateY(0)
+            }
+        }
+
+        /* =========================
+   SECTION
+========================= */
+
+        section {
+            padding: 6rem 0;
+        }
+
+        .sec-soft {
+            background: var(--light);
+        }
+
+        .sh {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .stag {
+            color: var(--accent);
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .sh h2 {
+            font-size: 2.6rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .ssub {
+            max-width: 700px;
+            margin: auto;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        /* =========================
+   ABOUT
+========================= */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            position: relative;
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 24px;
+            text-align: center;
+            transition: .35s ease;
+            border: 1px solid rgba(0, 0, 0, .06);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #0f766e, #14b8a6);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, .12);
+        }
+
+        .icon-wrapper {
+            width: 82px;
+            height: 82px;
+            margin: 0 auto 24px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(20, 184, 166, .25);
+        }
+
+        .icon-wrapper i,
+        .card-icon {
+            font-size: 34px;
+            color: #fff;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .card p {
+            font-size: .98rem;
+            line-height: 1.8;
+            color: #475569;
+        }
+
+        /* =========================
+   PRODUCTS
+========================= */
+
+        .products-section {
+            padding: 100px 0;
+        }
+
+        .product-slider {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-track {
+            display: flex;
+            gap: 30px;
+            width: max-content;
+            animation: scrollProducts 18s linear infinite;
+        }
+
+        /* CARD */
+
+        .product-card {
+            width: 340px;
+            min-height: 100%;
+            flex-shrink: 0;
+            background: #fff;
+            border-radius: 28px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.06);
+            transition: all .35s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 55px rgba(15, 23, 42, 0.14);
+        }
+
+        /* pause on hover */
+        .product-slider:hover .product-track {
+            animation-play-state: paused;
+        }
+
+        /* infinite animation */
+        @keyframes scrollProducts {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-370px * 4));
+            }
+        }
+
+        /* FEATURED */
+        /* 
+        .featured-product {
+            border: 2px solid #1ea7fd;
+            box-shadow: 0 18px 45px rgba(30, 167, 253, .18);
+        } */
+
+        .product-badge {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: #fff;
+            font-size: .72rem;
+            font-weight: 700;
+            padding: .45rem .9rem;
+            border-radius: 999px;
+            letter-spacing: .5px;
+            z-index: 5;
+            box-shadow: 0 10px 20px rgba(0, 114, 255, .25);
+        }
+
+        /* IMAGE */
+
+        .product-img {
+            width: 100%;
+            height: 280px;
+            padding: 30px;
+            background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform .4s ease;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.06);
+        }
+
+        /* CONTENT */
+
+        .product-content {
+            padding: 30px 28px 32px;
+        }
+
+        .product-top {
+            margin-bottom: 14px;
+        }
+
+        .product-content h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.4;
+        }
+
+        .product-content p {
+            font-size: .97rem;
+            line-height: 1.85;
+            color: #64748b;
+            margin-bottom: 22px;
+        }
+
+        /* FEATURES */
+
+        .product-features {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+            margin-bottom: 26px;
+        }
+
+        .product-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: .92rem;
+            color: #334155;
+        }
+
+        .product-features li::before {
+            content: "✓";
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #e0f2fe;
+            color: #0284c7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* BUTTON */
+
+        .product-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: .9rem 1.4rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #1590ff, #0066d6);
+            color: #fff;
+            font-size: .92rem;
+            font-weight: 600;
+            transition: .3s ease;
+            box-shadow: 0 10px 25px rgba(21, 144, 255, .2);
+        }
+
+        .product-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(21, 144, 255, .3);
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:768px) {
+
+            .products-section {
+                padding: 70px 0;
+            }
+
+            .product-slider {
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+
+            .product-slider::-webkit-scrollbar {
+                height: 6px;
+            }
+
+            .product-slider::-webkit-scrollbar-thumb {
+                background: #cbd5e1;
+                border-radius: 20px;
+            }
+
+            .product-track {
+                width: max-content;
+                padding-bottom: 8px;
+            }
+
+            .product-card {
+                width: 290px;
+            }
+
+            .product-img {
+                height: 240px;
+                padding: 22px;
+            }
+
+            .product-content {
+                padding: 24px;
+            }
+        }
+
+        /* =========================
+   THERAPEUTIC
+========================= */
+
+        .therapeutic {
+            background: #fff;
+            padding: 100px 0;
+        }
+
+        .tg {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .tc {
+            background: #fff;
+            border-radius: 18px;
+            padding: 30px 25px;
+            border: 1px solid #eef2f7;
+            transition: .3s ease;
+        }
+
+        .tc:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .06);
+        }
+
+        .ti {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: #f4f8ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #2e86de;
+            margin-bottom: 18px;
+            transition: .3s;
+        }
+
+        .tc:hover .ti {
+            background: #2e86de;
+            color: #fff;
+        }
+
+        .tc h3 {
+            font-size: 18px;
+            color: #0d2b5e;
+            margin-bottom: 10px;
+        }
+
+        .tc p {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        /* =========================
+   QUALITY
+========================= */
+
+        /* ==========================================================================
+           QUALITY ASSURANCE MATRIX (MNC GLOBAL COMPLIANCE)
+           ========================================================================== */
+        .qual {
+            background: linear-gradient(135deg, #0a192f 0%, #0f2444 100%);
+            color: #ffffff;
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .qg {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .qual-tag {
+            background: rgba(14, 165, 233, 0.15);
+            color: var(--brand-secondary);
+        }
+
+        .qt h2 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            margin: 16px 0 24px;
+            letter-spacing: -0.03em;
+        }
+
+        .section-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--brand-secondary);
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 12px;
+            background: rgba(14, 165, 233, 0.06);
+            padding: 6px 16px;
+            border-radius: 100px;
+        }
+
+
+        .qt p {
+            color: #94a3b8;
+            line-height: 1.8;
+            margin-bottom: 32px;
+            font-size: 1.05rem;
+        }
+
+        .ql {
+            list-style: none;
+            display: grid;
+            gap: 16px;
+        }
+
+        .ql li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1rem;
+            color: #cbd5e1;
+        }
+
+        .ql li i {
+            color: var(--brand-accent);
+            font-size: 1.1rem;
+        }
+
+        .qs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .qb {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 36px 24px;
+            text-align: center;
+            transition: all 0.3s var(--transition-smooth);
+            backdrop-filter: blur(5px);
+        }
+
+        .qb i {
+            font-size: 1.8rem;
+            color: var(--brand-secondary);
+            margin-bottom: 16px;
+        }
+
+        .qn {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .qla {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .qb:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--brand-secondary);
+            transform: translateY(-4px);
+        }
+
+        /* =========================
+   CONTACT
+========================= */
+
+        .contact {
+            background: var(--light);
+            padding: 100px 0;
+        }
+
+        .cg {
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .ci {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .cii {
+            background: #fff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            box-shadow: var(--shadow);
+            border: 1px solid #eef2f7;
+            transition: .3s ease;
+        }
+
+        .cii:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
+        }
+
+        .cicon {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: #edf5ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--accent);
+            flex-shrink: 0;
+            transition: .3s ease;
+        }
+
+        .cii:hover .cicon {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .cii h4 {
+            color: var(--primary);
+            margin-bottom: .4rem;
+            font-size: 1rem;
+        }
+
+        .cii p {
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: .92rem;
+        }
+
+        .cf {
+            background: #fff;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid #eef2f7;
+        }
+
+        .cf h3 {
+            color: var(--primary);
+            margin-bottom: 1.8rem;
+            font-size: 1.4rem;
+        }
+
+        .fr {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .fi {
+            width: 100%;
+            padding: 1rem 1.1rem;
+            border-radius: 12px;
+            border: 1.5px solid #e2e8f0;
+            font-size: .95rem;
+            margin-bottom: 1rem;
+            transition: .25s ease;
+            background: #f9fbff;
+        }
+
+        .fi:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(46, 134, 222, .15);
+        }
+
+        .fi::placeholder {
+            color: #94a3b8;
+        }
+
+        textarea.fi {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .fn {
+            color: var(--muted);
+            font-size: .8rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .cf button {
+            width: 100%;
+        }
+
+        /* =========================
+   FOOTER
+========================= */
+
+        .ft {
+            background: #071430;
+            color: #fff;
+        }
+
+        .ftop {
+            padding: 5rem 0 3rem;
+        }
+
+        .fg {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(4, 1fr);
+            gap: 2.5rem;
+        }
+
+        .f-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fb p {
+            color: rgba(255, 255, 255, .7);
+            line-height: 1.8;
+            margin-top: 1rem;
+            font-size: .9rem;
+        }
+
+        .fsocial {
+            display: flex;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .fsocial a {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .fsocial a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .fl {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+
+        .fl h4 {
+            color: #f0c040;
+            margin-bottom: 1rem;
+            font-size: .85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .fl a {
+            color: rgba(255, 255, 255, .7);
+            font-size: .9rem;
+            transition: .3s;
+        }
+
+        .fl a:hover {
+            color: #fff;
+            transform: translateX(4px);
+        }
+
+        .fbot {
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            padding: 1.5rem 0;
+            text-align: center;
+            color: rgba(255, 255, 255, .6);
+            font-size: .85rem;
+        }
+
+        /* =========================
+   RESPONSIVE
+========================= */
+
+        @media(max-width:992px) {
+
+            .hero-in,
+            .cg,
+            .fg,
+            .product-grid,
+            .tg {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                text-align: center;
+            }
+
+            .nav {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 15px 30px rgba(0, 0, 0, .08);
+            }
+
+            .nav.open {
+                display: flex;
+            }
+
+            .hbg {
+                display: block;
+            }
+
+            .tg {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width:768px) {
+
+            section {
+                padding: 4.5rem 0;
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            .hero-in {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-buttons,
+            .hbtns {
+                justify-content: center;
+            }
+
+            .hero-cards,
+            .fr,
+            .qs {
+                grid-template-columns: 1fr;
+            }
+
+            .sh h2 {
+                font-size: 2rem;
+            }
+
+            .cf {
+                padding: 2rem;
+            }
+
+            .product-card {
+                width: 280px;
+            }
+
+            @keyframes infiniteScroll {
+                0% {
+                    transform: translateX(0)
+                }
+
+                100% {
+                    transform: translateX(calc(-304px * 4))
+                }
+            }
+        }
+
+        @media(max-width:576px) {
+
+            .hero-content h1,
+            .hc h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-desc {
+                font-size: .95rem;
+            }
+
+            .btn-primary,
+            .btn-secondary,
+            .btn1,
+            .btn2 {
+                width: 100%;
+                text-align: center;
+            }
+
+            .tg {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <!-- FLOATING PREMIUM HEADER -->
+    <header class="hdr">
+        <div class="container hdr-in">
+            <a href="#home" class="logo">
+                <div class="brand-mark">
+                    <img src="assets/images/ravion_logo_design.jpeg" alt="Ravion Pharma" />
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">Ravion Pharma</span>
+                    <span class="brand-tag">Innovation With Care</span>
+                </div>
+            </a>
+
+            <nav class="nav" id="nav">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#products">Formulations</a>
+                <a href="#therapeutic">Therapeutics</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="hdr-actions">
+                <button class="btn-primary" onclick="location.href='#contact'">Enquire Globally</button>
+                <button class="hbg" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+        <div class="wrap hero-in">
+
+            <!-- LEFT CONTENT -->
+            <div class="hero-content">
+                <h1> Advanced Healthcare Solutions
+                    For <span>Healthier Lives</span></h1>
+                <p class="hero-desc">
+                    Ravion Pharma is dedicated to delivering science-driven pharmaceutical and premium healthcare
+                    solutions focused on immunity, pediatric wellness, and growth. Backed by advanced research and
+                    stringent quality standards, we combine pharmaceutical expertise with modern nutritional science to
+                    engineer high-bioavailability formulations. With a strong commitment to innovation, Ravion Pharma
+                    strives to provide trusted, clinical-grade solutions that enhance health and quality of life from
+                    the very start.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn-primary">View Formulations</a>
+                    <a href="#contact" class="btn-secondary">Partner With Us</a>
+                </div>
+            </div>
+            <!-- RIGHT IMAGE -->
+            <div class="hero-image">
+
+                <!-- RIGHT IMAGE -->
+                <div class="hero-image">
+
+                    <img src="assets/images/doc-kid.png" alt="Mother with Child">
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    <!-- ABOUT -->
+
+    <section id="about">
+
+        <div class="wrap">
+
+            <div class="sh">
+                <span class="stag">About Ravion Pharma</span>
+
+                <h2>Committed to Advancing Healthcare</h2>
+
+                <p class="ssub">
+                    Delivering scientifically formulated pharmaceutical and nutraceutical solutions focused on efficacy,
+                    safety, and sustained wellness.
+                </p>
+            </div>
+
+            <div class="about-grid">
+
+                <div class="card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-flask"></i>
+                    </div>
+
+                    <h3>Clinically Informed</h3>
+
+                    <p>
+                        Scientifically developed formulations crafted with evidence-based
+                        ingredients to support effective healthcare outcomes.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-shield-virus"></i>
+                    </div>
+
+                    <h3>Quality Driven</h3>
+
+                    <p>
+                        Manufactured in quality-controlled facilities following strict
+                        pharmaceutical safety and compliance standards.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-user-doctor"></i>
+                    </div>
+
+                    <h3>Patient Centric</h3>
+
+                    <p>
+                        Healthcare solutions designed for better effectiveness, comfort,
+                        and everyday wellness for families.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- PRODUCTS -->
+
+    <section id="products" class="sec-soft products-section">
+
+        <div class="wrap">
+
+            <div class="sh">
+                <span class="stag">Our Formulations</span>
+
+                <h2>Advanced Pharmaceutical & Wellness Formulations</h2>
+
+                <p class="ssub">
+                    Scientifically developed formulations designed to support
+                    pediatric healthcare, cognitive development, immunity,
+                    growth, and overall wellness through evidence-based science.
+                </p>
+            </div>
+
+            <div class="product-slider">
+
+                <div class="product-track">
+
+                    <!-- PRODUCT 1 -->
+                    <article class="product-card featured-product">
+
+                        <div class="product-img">
+                            <img src="./assets/images/irovion-1.png" alt="Irovion Sprinkle">
+                        </div>
+
+                        <div class="product-content">
+
+                            <div class="product-top">
+                                <h3>Irovion Sprinkle</h3>
+                            </div>
+
+                            <p>
+                                Encapsulated iron granules designed for pediatric use,
+                                convenient administration, and improved acceptability.
+                            </p>
+
+                            <ul class="product-features">
+                                <li>Easy sprinkle bottle format</li>
+                                <li>Taste-neutral iron granules</li>
+                                <li>Encapsulated technology</li>
+                                <li>Supports healthy iron levels</li>
+                                <li>Better pediatric compliance</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+                    <!-- PRODUCT 2 -->
+                    <article class="product-card">
+
+                        <div class="product-img">
+                            <img src="./assets/images/pedivionDrop-3d.png" alt="Pedivion Drops">
+                        </div>
+
+                        <div class="product-content">
+
+                            <div class="product-top">
+                                <h3>Pedivion Drops</h3>
+                            </div>
+
+                            <p>
+                                Advanced multivitamin formulation designed for
+                                healthy growth and immune support.
+                            </p>
+
+                            <ul class="product-features">
+                                <li>Daily multivitamin support</li>
+                                <li>Healthy child growth</li>
+                                <li>Immune strengthening</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+                    <!-- PRODUCT 3 -->
+                    <article class="product-card">
+
+                        <div class="product-img">
+                            <img src="./assets/images/primDHA-3d.jpeg" alt="PrimeDHA Kids Drops">
+                        </div>
+
+                        <div class="product-content">
+
+                            <div class="product-top">
+                                <h3>PrimeDHA Kids Drops</h3>
+                            </div>
+
+                            <p>
+                                Plant-based algal DHA with Vitamin D3 supporting
+                                cognitive development and immunity.
+                            </p>
+
+                            <ul class="product-features">
+                                <li>Supports brain development</li>
+                                <li>Boosts immunity</li>
+                                <li>Easy daily dosage</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+                    <!-- PRODUCT 4 -->
+                    <article class="product-card">
+
+                        <div class="product-img">
+                            <img src="./assets/images/growvionDHA-3d.png" alt="Growvion DHA">
+                        </div>
+
+                        <div class="product-content">
+
+                            <div class="product-top">
+                                <h3>Growvion DHA</h3>
+                            </div>
+
+                            <p>
+                                Advanced DHA and protein formulation designed to support
+                                growth, development, and overall well-being.
+                            </p>
+
+                            <ul class="product-features">
+                                <li>Protein enriched formula</li>
+                                <li>Supports physical growth</li>
+                                <li>Brain nourishment</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+                    <!-- DUPLICATE PRODUCT 1 -->
+                    <article class="product-card featured-product">
+
+                        <div class="product-img">
+                            <img src="./assets/images/irovion-1.png" alt="Irovion Sprinkle">
+                        </div>
+
+                        <div class="product-content">
+
+                            <div class="product-top">
+                                <h3>Irovion Sprinkle</h3>
+                            </div>
+
+                            <p>
+                                Taste-neutral encapsulated iron granules developed for
+                                pediatric acceptance and convenient administration.
+                            </p>
+
+                            <ul class="product-features">
+                                <li>Easy sprinkle bottle format</li>
+                                <li>Taste-neutral iron granules</li>
+                                <li>Encapsulated technology</li>
+                                <li>Supports healthy iron levels</li>
+                                <li>Better pediatric compliance</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+                    <!-- DUPLICATE PRODUCT 2 -->
+                    <article class="product-card">
+
+                        <div class="product-img">
+                            <img src="./assets/images/pedivionDrop-3d.png" alt="Pedivion Drops">
+                        </div>
+
+                        <div class="product-content">
+
+                            <div class="product-top">
+                                <h3>Pedivion Drops</h3>
+                            </div>
+
+                            <p>
+                                Advanced multivitamin formulation designed for
+                                healthy growth and immune support.
+                            </p>
+
+                            <ul class="product-features">
+                                <li>Daily multivitamin support</li>
+                                <li>Healthy child growth</li>
+                                <li>Immune strengthening</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+                    <!-- DUPLICATE PRODUCT 3 -->
+                    <article class="product-card">
+
+                        <div class="product-img">
+                            <img src="./assets/images/primDHA-3d.jpeg" alt="PrimeDHA Kids Drops">
+                        </div>
+
+                        <div class="product-content">
+
+                            <div class="product-top">
+                                <h3>PrimeDHA Kids Drops</h3>
+                            </div>
+
+                            <p>
+                                Plant-based algal DHA with Vitamin D3 supporting
+                                cognitive development and immunity.
+                            </p>
+
+                            <ul class="product-features">
+                                <li>Supports brain development</li>
+                                <li>Boosts immunity</li>
+                                <li>Easy daily dosage</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+                    <!-- DUPLICATE PRODUCT 4 -->
+                    <article class="product-card">
+
+                        <div class="product-img">
+                            <img src="./assets/images/growvionDHA-3d.png" alt="Growvion DHA">
+                        </div>
+
+                        <div class="product-content">
+
+                            <div class="product-top">
+                                <h3>Growvion DHA</h3>
+                            </div>
+
+                            <p>
+                                Advanced DHA and protein formulation designed to support
+                                growth, development, and overall well-being.
+                            </p>
+
+                            <ul class="product-features">
+                                <li>Protein enriched formula</li>
+                                <li>Supports physical growth</li>
+                                <li>Brain nourishment</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- THERAPEUTIC -->
+    <section id="therapeutic" class="therapeutic">
+        <div class="wrap">
+
+            <div class="sh">
+                <span class="stag">Therapeutic Areas</span>
+                <h2>Focused Healthcare Expertise</h2>
+                <p class="ssub">
+                    Advanced formulations designed to support pediatric health,
+                    immunity, and overall development through science-driven care.
+                </p>
+            </div>
+
+            <div class="tg">
+
+                <div class="tc">
+                    <div class="ti">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <h3>Pediatric Nutrition</h3>
+                    <p>
+                        Clinically developed formulations to support healthy growth,
+                        nutritional balance, and overall pediatric well-being.
+                    </p>
+                </div>
+
+                <div class="tc">
+                    <div class="ti">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Cognitive Development</h3>
+                    <p>
+                        Enriched with DHA and essential nutrients to support brain
+                        development, memory, and learning ability.
+                    </p>
+
+                </div>
+
+                <div class="tc">
+                    <div class="ti">
+                        <i class="fas fa-shield-virus"></i>
+                    </div>
+                    <h3>Immunity Support</h3>
+                    <p>
+                        Advanced formulations with key vitamins and minerals to support
+                        immune function and overall health resilience.
+                    </p>
+                </div>
+
+                <div class="tc">
+                    <div class="ti">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Growth & Development</h3>
+                    <p>
+                        Balanced nutritional compositions supporting healthy physical
+                        growth and developmental milestones.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- QUALITY -->
+
+
+    <!-- MNC COMPLIANCE AND VALIDATION MATRIX -->
+    <!-- QUALITY & COMPLIANCE -->
+
+    <section class="qual">
+        <div class="container qg">
+
+            <!-- LEFT CONTENT -->
+            <div class="qt">
+
+                <span class="section-tag qual-tag">
+                    Manufacturing Excellence
+                </span>
+
+                <h2>Global Quality & Compliance Standards</h2>
+
+                <p>
+                    Every Ravion Pharma formulation is developed and manufactured through
+                    carefully qualified production partners operating under stringent
+                    quality systems, validated processes, and globally recognized
+                    compliance standards.
+
+                    Our manufacturing network is selected based on regulatory adherence,
+                    quality assurance capabilities, operational consistency, and
+                    documented process controls to ensure reliable product excellence
+                    across every batch.
+                </p>
+
+                <ul class="ql">
+
+                    <li>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Manufactured through WHO-GMP certified facilities
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Batch-wise quality validation and analytical testing
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Documented contamination control and process integrity systems
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Verified sourcing and quality-approved raw material standards
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- RIGHT CARDS -->
+            <div class="qs">
+
+                <div class="qb">
+                    <i class="fa-solid fa-award"></i>
+
+                    <div class="qn">
+                        WHO-GMP
+                    </div>
+
+                    <div class="qla">
+                        Certified Manufacturing Standards
+                    </div>
+                </div>
+
+                <div class="qb">
+                    <i class="fa-solid fa-file-medical"></i>
+
+                    <div class="qn">
+                        FSSAI
+                    </div>
+
+                    <div class="qla">
+                        Food Safety & Regulatory Standards
+                    </div>
+                </div>
+
+                <div class="qb">
+                    <i class="fa-solid fa-microscope"></i>
+
+                    <div class="qn">
+                        Quality Control
+                    </div>
+
+                    <div class="qla">
+                        Batch Testing & Verification
+                    </div>
+                </div>
+
+                <div class="qb">
+                    <i class="fa-solid fa-vial-circle-check"></i>
+
+                    <div class="qn">
+                        Quality Assurance
+                    </div>
+
+                    <div class="qla">
+                        Process Validation Framework
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- CONTACT -->
+
+    <section class="contact" id="contact">
+
+        <div class="wrap">
+
+            <div class="sh">
+                <span class="stag">Get In Touch</span>
+
+                <h2>Contact Ravion Pharma</h2>
+
+                <p class="ssub">
+                    For product information, business collaborations, or general enquiries,
+                    please connect with our team.
+                </p>
+            </div>
+
+            <div class="cg">
+
+                <!-- LEFT -->
+                <div class="ci">
+
+                    <div class="cii">
+                        <div class="cicon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div>
+                            <h4>Corporate Office</h4>
+                            <p>Ravion pharma pvt ltd , STREET NO 5,INDUS
+                                COLONY, GANDHUMGUDA, HYDERABAD
+                                500091 , CIRCLE 19, CIRCLE 19,HYDERABAD</p>
+                        </div>
+                    </div>
+
+
+
+                    <div class="cii">
+                        <div class="cicon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>contact@ravionpharma.in</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- FORM -->
+                <div class="cf">
+
+                    <h3>Send Us A Message</h3>
+
+                    <form action="https://formsubmit.co/contact@ravionpharma.in" method="POST">
+
+                        <input type="text" name="name" class="fi" placeholder="Full Name" required>
+
+                        <input type="email" name="email" class="fi" placeholder="Email Address" required>
+
+                        <input type="text" name="subject" class="fi" placeholder="Subject" required>
+
+                        <textarea name="message" class="fi" placeholder="Your Message" required></textarea>
+
+                        <button class="btn1" type="submit">
+                            Submit Enquiry
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer class="ft">
+
+        <div class="ftop">
+
+            <div class="wrap fg">
+
+                <!-- BRAND -->
+                <div class="fb">
+
+
+
+                    <a href="#home" class="logo">
+                        <div class="brand-mark">
+                            <img src="assets/images/ravion_logo_design.jpeg" alt="Ravion Pharma" />
+                        </div>
+                        <div class="brand-text">
+                            <span class="brand-name">Ravion Pharma</span>
+                            <span class="ft brand-tag">Innovation With Care</span>
+                        </div>
+                    </a>
+
+                    <p>
+                        Delivering science-driven pharmaceutical formulations and healthcare solutions focused on
+                        quality, safety, and long-term wellness.
+                    </p>
+
+                    <!-- SOCIAL -->
+                    <!-- <div class="fsocial">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div> -->
+
+                </div>
+
+                <!-- QUICK LINKS -->
+                <div class="fl">
+                    <h4>Company</h4>
+                    <a href="#home">Home</a>
+                    <a href="#about">About Us</a>
+                    <a href="#products">Products</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+                <!-- PRODUCTS -->
+                <div class="fl">
+                    <h4>Therapeutic Areas</h4>
+                    <a href="#therapeutic">Pediatric Nutrition</a>
+                    <a href="#therapeutic">Cognitive Development</a>
+                    <a href="#therapeutic">Immunity Support</a>
+                    <a href="#therapeutic">Growth & Development</a>
+                </div>
+
+                <!-- CONTACT -->
+                <div class="fl">
+                    <h4>Contact</h4>
+                    <a href="#">Hyderabad, India</a>
+                    <a href="mailto:contact@ravionpharma.in">contact@ravionpharma.in</a>
+                </div>
+
+                <!-- LEGAL -->
+                <div class="fl">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Disclaimer</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="fbot">
+            <div class="wrap">
+                © 2025 Ravion Pharma Private Limited. All Rights Reserved.
+            </div>
+        </div>
+
+    </footer>
+
+    <script>
+
+        function toggleMenu() {
+            document.getElementById('nav').classList.toggle('open');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+
+            anchor.addEventListener('click', function (e) {
+
+                const target = document.querySelector(this.getAttribute('href'));
+
+                if (target) {
+
+                    e.preventDefault();
+
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+
+                    document.getElementById('nav').classList.remove('open');
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

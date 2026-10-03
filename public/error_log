@@ -1,0 +1,216 @@
+[20-Apr-2026 07:43:47 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 07:43:55 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 07:44:15 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 07:51:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 07:51:16 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 07:51:24 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 07:54:01 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 07:54:02 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 07:54:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 07:54:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 07:54:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 08:00:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 08:00:51 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 08:01:41 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(60): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 08:02:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(60): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 08:03:34 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(63): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 08:05:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(63): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287
+[20-Apr-2026 08:05:06 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function CodeIgniter\Autoloader\mb_strpos() in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php:287
+Stack trace:
+#0 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(477): CodeIgniter\Autoloader\FileLocator->findQualifiedNameFromPath()
+#1 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(343): CodeIgniter\Config\BaseService::buildServicesCache()
+#2 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(328): CodeIgniter\Config\BaseService::serviceExists()
+#3 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+#4 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Common.php(1078): CodeIgniter\Config\BaseService::get()
+#5 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(333): service()
+#6 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Boot.php(56): CodeIgniter\Boot::setExceptionHandler()
+#7 /home/ltwy1rdq1h5j/public_html/ravionpharma.in/public/index.php(63): CodeIgniter\Boot::bootWeb()
+#8 {main}
+  thrown in /home/ltwy1rdq1h5j/public_html/ravionpharma.in/vendor/codeigniter4/framework/system/Autoloader/FileLocator.php on line 287

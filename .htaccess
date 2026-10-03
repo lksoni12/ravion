@@ -1,0 +1,26 @@
+<IfModule mod_rewrite.c>
+	Options +FollowSymlinks
+	RewriteEngine On
+
+	# 1. Cleanly handle WWW to non-WWW first
+	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+	RewriteRule ^(.*)$ https://ravionpharma.in/$1 [R=301,L]
+
+	# 2. Force HTTPS cleanly using Cloudflare's proxy header
+	RewriteCond %{HTTP:X-Forwarded-Proto} =http
+	RewriteRule ^(.*)$ https://ravionpharma.in/$1 [R=301,L]
+
+	# 3. Redirect Trailing Slashes...
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_URI} (.+)/$
+	RewriteRule ^ %1 [L,R=301]
+
+	# 4. CodeIgniter Front Controller Routing
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^([\s\S]*)$ index.php/$1 [L,NC,QSA]
+
+	# 5. Ensure Authorization header is passed along
+	RewriteCond %{HTTP:Authorization} .
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
