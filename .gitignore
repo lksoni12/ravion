@@ -124,15 +124,11 @@ _modules/*
 
 /results/
 /phpunit*.xml
-/angel_cache/
+angel_cache/
+angel_mcp_storage/
 angel_symbol_token_map.json
 angel_tokens.json
 angelone_mcp_http.php
 angelone_mcp_http_v2.php
-/angel_mcp_storage/
-/screener/
-/trading/
-/vendor/
-
-
-
+screener/
+trading/

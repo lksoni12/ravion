@@ -1,0 +1,1949 @@
+/*M!999999\- enable the sandbox mode */ 
+-- MariaDB dump 10.19  Distrib 10.11.19-MariaDB, for Linux (x86_64)
+--
+-- Host: localhost    Database: ravion_pharma_db
+-- ------------------------------------------------------
+-- Server version	10.11.19-MariaDB-cll-lve
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `app_settings`
+--
+
+DROP TABLE IF EXISTS `app_settings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `app_settings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `setting_key` varchar(120) NOT NULL,
+  `setting_value` text DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `setting_key` (`setting_key`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `app_settings`
+--
+
+LOCK TABLES `app_settings` WRITE;
+/*!40000 ALTER TABLE `app_settings` DISABLE KEYS */;
+INSERT INTO `app_settings` VALUES
+(1,'company_logo','uploads/logo/1776738237_e2a24bf5e89be6766942.jpg','2026-04-20 13:19:33','2026-04-21 02:23:57');
+/*!40000 ALTER TABLE `app_settings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cfas`
+--
+
+DROP TABLE IF EXISTS `cfas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cfas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(180) NOT NULL,
+  `state` varchar(120) DEFAULT NULL,
+  `created_by_user_id` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `contact_person` varchar(180) DEFAULT NULL,
+  `mobile` varchar(50) DEFAULT NULL,
+  `email` varchar(180) DEFAULT NULL,
+  `gst` varchar(50) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `territory_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cfas_created_by_user_id_foreign` (`created_by_user_id`),
+  KEY `fk_cfas_territory` (`territory_id`),
+  CONSTRAINT `cfas_created_by_user_id_foreign` FOREIGN KEY (`created_by_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE SET NULL,
+  CONSTRAINT `fk_cfas_territory` FOREIGN KEY (`territory_id`) REFERENCES `territories` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cfas`
+--
+
+LOCK TABLES `cfas` WRITE;
+/*!40000 ALTER TABLE `cfas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cfas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `chemists`
+--
+
+DROP TABLE IF EXISTS `chemists`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `chemists` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(180) NOT NULL,
+  `contact_person` varchar(180) DEFAULT NULL,
+  `stockist_name` varchar(180) DEFAULT NULL,
+  `area` varchar(150) DEFAULT NULL,
+  `contact` varchar(30) DEFAULT NULL,
+  `created_by_user_id` int(11) DEFAULT NULL,
+  `approval_status` varchar(20) DEFAULT 'approved',
+  `approved_by_user_id` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `territory_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_chemists_territory` (`territory_id`),
+  CONSTRAINT `fk_chemists_territory` FOREIGN KEY (`territory_id`) REFERENCES `territories` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `chemists`
+--
+
+LOCK TABLES `chemists` WRITE;
+/*!40000 ALTER TABLE `chemists` DISABLE KEYS */;
+INSERT INTO `chemists` VALUES
+(1,'TIWARI MEDICAL','TIWARI',NULL,'Jabalpur','',22,'approved',2,'2026-07-24 05:04:02','2026-07-24 05:04:53',3),
+(2,'NOVA MEDICAL','SITARAM',NULL,'Jabalpur','',22,'pending',NULL,'2026-09-29 13:12:16','2026-09-29 13:12:16',3);
+/*!40000 ALTER TABLE `chemists` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `doctors`
+--
+
+DROP TABLE IF EXISTS `doctors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `doctors` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `speciality` varchar(120) DEFAULT NULL,
+  `clinic_address` text DEFAULT NULL,
+  `contact` varchar(30) DEFAULT NULL,
+  `category` varchar(1) NOT NULL DEFAULT 'C',
+  `monthly_potential` varchar(60) DEFAULT NULL,
+  `area_patch` varchar(120) DEFAULT NULL,
+  `created_by_user_id` int(11) DEFAULT NULL,
+  `approval_status` varchar(20) DEFAULT 'approved',
+  `approved_by_user_id` int(11) DEFAULT NULL,
+  `assigned_to_user_id` int(11) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `anniversary` date DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `territory_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_doctors_territory` (`territory_id`),
+  CONSTRAINT `fk_doctors_territory` FOREIGN KEY (`territory_id`) REFERENCES `territories` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `doctors`
+--
+
+LOCK TABLES `doctors` WRITE;
+/*!40000 ALTER TABLE `doctors` DISABLE KEYS */;
+INSERT INTO `doctors` VALUES
+(1,'Dr S.C JETHI','MD','KANCHGHAR JABALPUR JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-04 08:06:25','2026-07-04 08:06:25',3),
+(2,'Dr SUDIPTO SAMADDAR','MD','RANJHI BASTI, RANJHI JABALPUR PIN- 48201 JABALPUR JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-04 08:07:15','2026-07-04 08:07:15',3),
+(3,'Dr JOGENDRA VEGAD','MD','ASHISH HOSPITAL NAPIER TOWN JABALPUR PIN JABALPUR JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-04 08:07:59','2026-07-04 08:07:59',3),
+(4,'Dr PALLAVI LONDE','DCH','SHITLA MAI,JABALPUR DIST.JABALPUR JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-04 08:08:52','2026-07-04 08:08:52',3),
+(5,'Dr KIRTI KUMAR JAIN','MD','CHIRANJEEV CLINIC GOL BAZAR JABALPUR','','B','1000','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-04 08:10:18','2026-07-04 08:10:18',3),
+(6,'Dr G.S NAIDU','MD','MARBLE CITY HOSPITAL JABALPUR PIN-482002 RUSSSEL CHOWK JABALPUR','','A','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-04 08:11:07','2026-07-04 08:11:07',3),
+(7,'Dr AYUSH KHARE','MD','NEAR BEOHARBAG PETROL PUMP, GHAMAPUR, JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-04 08:11:47','2026-07-04 08:11:47',3),
+(9,'DR RAJEEV BANZAL','MD','COURT ROAD , GHAMAPUR CHOWK , GHAMAPUR , JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-04 08:16:13','2026-07-04 08:16:13',3),
+(10,'Dr RANJU SAIKIA','MD','YADAV COLONY,MAIN ROAD, LABOUR CHOWK JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-04 08:16:58','2026-07-04 08:16:58',3),
+(11,'Dr ATUL LALWANI','MD','NEAR LAL CHURCH, HAWA BAGH COLLEGE , RAMPUR JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-04 08:18:08','2026-07-04 08:18:08',3),
+(12,'DR NEETA POLE','MD','DR SULE NURSHING HOME, RAMPUR, JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-04 08:20:07','2026-07-04 08:20:07',3),
+(13,'DR HEMLATA ARORA','MD','BHARAT HOSPITAL RANITAL JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-04 08:21:05','2026-07-04 08:21:05',3),
+(14,'DR RAJNISH NEMA','MD','CHIRAYU HOSPITAL IN FRONT OF ADITYA HOSPITAL JABALPUR','','A','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-06 08:10:46','2026-07-06 08:10:46',3),
+(15,'DR PRADEEP ARORA','MD','BHARAT HOSPITAL RANITAL JABALPUR','','A','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-06 08:11:32','2026-07-06 08:11:32',3),
+(16,'DR PRABHAT BUDHOLIA','MD','MAIN ROAD MILLONIGANJ JABALPUR','','B','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-06 08:12:16','2026-07-06 08:12:16',3),
+(17,'DR ASHISH TIWARI','MD','NEAR PAPLU MEDICAL YADAV COLONY JABALPUR','','A','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-06 08:22:44','2026-07-06 08:22:44',3),
+(18,'DR REEMA AGRAWAL','MD','PRASUTIKA GRAH RIGHT TOWN JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-06 08:23:24','2026-07-06 08:23:24',3),
+(20,'DR PRADEEP GUPTA','DCH','NEAR RATNA APTE NARSINGHOME, KARELI ROAD NARSNGHPUR','','B','500','Narsinghpur',2,'approved',2,NULL,NULL,NULL,'2026-07-06 08:25:11','2026-07-06 08:25:11',4),
+(21,'DR VIJYAJANT JAIN','DCH','GOVT. HOSPITAL CAMPUS, CIVIL LINES NARSINGHPUR','','C','500','Narsinghpur',2,'approved',2,NULL,NULL,NULL,'2026-07-06 08:25:54','2026-07-06 08:25:54',4),
+(22,'DR PRIYKANT TOMAR','DCH','NEW SUTIKA GRAH HOSPITAL, WRIGHT TOWN, JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-06 08:26:44','2026-07-06 08:26:44',3),
+(23,'DR PRIYALATA SHARAN','DCH','NAPIER TOWN JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-06 08:27:30','2026-07-06 08:27:30',3),
+(24,'DR NEHA SINGH','DCH','OMEGA HOSPITAL GOL BAZAR JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-07-06 08:27:59','2026-07-06 08:27:59',3),
+(25,'SR ARUN SAXENA','DCH','ADDRESS 1- SADAR BAZAR\r\nADDRESS 2- NEAR HOTEL RIYAZ','','A','1000','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-24 05:03:38','2026-07-24 05:04:47',3),
+(26,'DR DEVIKA JAIN','MD','MADAN MAHAL NEAR SANKAR MEDICAL','','C','1000','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-24 05:11:50','2026-07-28 05:41:33',3),
+(27,'DR C B ARORA','DCH','MADAN MAHAL NEAR GASTRO CLINIC','','B','500','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-24 05:12:55','2026-07-28 05:42:05',3),
+(28,'DR SUDHEER JAIN','DCH','MADAN MAHAL STATION ROAD','','C','500','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-24 05:13:56','2026-07-28 05:42:00',3),
+(29,'DR AJAY SARAF','MD','CIVIL LINE RDVV ROAD','','A','1000','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-24 05:15:15','2026-07-28 05:41:54',3),
+(30,'DR G L CHATRI','MD','MILONIGANJ DR ANIL ARRORA','','A','1000','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-24 05:16:16','2026-07-28 05:41:49',3),
+(31,'DR YOGESH PAHALGANI','MD','ADDRESS- SUTIKA GRAHA \r\nADDRESS - NEAR RADDI CHOUKI','','A','1000','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-24 05:18:16','2026-07-28 05:41:44',3),
+(32,'DR SATISH HARSHE','DCH','Omega hospital golbazar jabalpur','','C','500','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-28 05:25:14','2026-07-28 05:41:39',3),
+(33,'DR SATISH HARSHE','DCH','Omega hospital golbazar jabalpur','','C','500','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-28 05:25:14','2026-07-28 05:41:25',3),
+(34,'DR VANDANA NEMA','MD','Damoh naka road jabalpur','','C','500','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-28 05:26:55','2026-07-28 05:41:18',3),
+(35,'DR MANJU NAYAK','MD','Near lavi medical Damoh naka road jabalpur','','C','500','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-28 05:28:02','2026-07-28 05:41:12',3),
+(37,'DR MUSTAFA BOHARA','MD','Ukhari  road jabalpur','','C','500','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-28 05:30:12','2026-07-28 05:41:03',3),
+(39,'DR AARADHANA MISHRA','MD','Jabalpur','','C','500','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-28 05:31:20','2026-07-28 05:40:55',3),
+(41,'DR RATNESH NAMDEV','MD','Adhartal road jabalpur','','C','1000','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-28 05:32:32','2026-07-28 05:40:46',3),
+(42,'DR K K JAIN','MD','Adhartal road near jain mandir jabalpur','','C','1000','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-28 05:33:37','2026-07-28 05:40:42',3),
+(43,'DR SATRUGHAN S DHAIYA','Md','Address - victoria hospital \r\nAddress - Near raddi chouki jabalpur','','C','500','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-07-28 05:35:19','2026-07-28 05:40:38',3),
+(44,'DR. PRADEEP GUPTA','MD','VATSALYA HOSPITAL NARSINGHPUR','','C','500','Narsinghpur',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:42:40','2026-08-08 07:42:40',4),
+(45,'DR. LILY MISTRY','DCH','GOVT HOSPITAL NARSINGPUR','','C','500','Narsinghpur',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:46:20','2026-08-08 07:46:20',4),
+(46,'DR. A.R. MARAVI','DCH','NARSINGPUR','','C','500','Narsinghpur',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:47:01','2026-08-08 07:47:01',4),
+(47,'DR. ASHISH UPADHYAY','MD','ASHISH HOSPITAL NARSINGHPUR','','C','500','Narsinghpur',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:47:55','2026-08-08 07:47:55',4),
+(48,'DR. VIJYANT JAIN','MD PEDIA','NARSINGHPUR','','C','500','Narsinghpur',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:48:41','2026-08-08 07:48:41',4),
+(49,'DR. ANMOL  CHOUDHA','MD','G D memorial Hospital bargawa Katni','','C','500','Katni',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:52:39','2026-08-08 07:52:39',5),
+(50,'DR. RAJEEV BAJAJ','MD','KHANAHIYA HOSPITAL KATNI','','A','500','Katni',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:53:38','2026-08-08 07:53:38',5),
+(51,'DR. NEELAM SONI','MD','NAYI BASTI KATNI','','C','500','Katni',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:54:12','2026-08-08 07:54:12',5),
+(52,'DR. K.K. JAIN','MD','HEERA GANJ KATNI','','C','500','Katni',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:54:48','2026-08-08 07:54:48',5),
+(53,'DR. AMIT SAHU','MD','NAYI BASTI KATNI','','C','500','Katni',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:55:21','2026-08-08 07:55:21',5),
+(54,'DR. SUSHMA GATTANI','MD','CHANDAK HOSPITAL','','C','500','Katni',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:55:53','2026-08-08 07:55:53',5),
+(55,'DR. S.L. CHOUDHARY','MD','LITTIL STAR CLINIC KATNI','','C','500','Katni',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:58:27','2026-08-08 07:58:27',5),
+(56,'DR. SOBHIT CHOUDHA','MD','GHANTA GHAR KATNI','','C','500','Katni',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:59:10','2026-08-08 07:59:10',5),
+(57,'DR. SAURABH CHOUDHARY','MD','MOM  ME CLINIC KATNI','','A','500','Katni',2,'approved',2,NULL,NULL,NULL,'2026-08-08 07:59:51','2026-08-08 07:59:51',5),
+(58,'DR. SONIKA MAKHIJANI','MD','ADARSH COLONY KATNI','','C','500','Katni',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:00:29','2026-08-08 08:00:29',5),
+(59,'DR. SAMEER CHOUDHARY','MD','LITTIL STAR CLINIC KATNI','','C','500','Katni',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:01:06','2026-08-08 08:01:06',5),
+(60,'DR MANISH MISHRA','MD','CHANDAK HOSPITAL ROAD','','C','500','Katni',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:04:52','2026-08-08 08:04:52',5),
+(61,'DR. RITU PATEL','DCH','GOVT HOSPITAL MAJHOLI','','C','500','MAJHOLI',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:06:55','2026-08-08 08:06:55',NULL),
+(62,'DR. ABHISHEK DUBEY','MBBS','MAIN MARKET ROAD MAJHAULI','','C','500','MAJHOLI',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:08:07','2026-08-08 08:08:07',9),
+(63,'DR. CP TIWARI','MBBS','NEAR CHANDRA MEDICAL MAJHOLI','','A','500','MAJHOLI',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:09:07','2026-08-08 08:09:07',9),
+(64,'DR. PARAS THAKUR','MBBS','Government hospital Manjholi','','C','500','MAJHOLI',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:09:49','2026-08-08 08:09:49',9),
+(65,'DR. CL DUBEY','MBBS','NEAR BUS STAND MAJHAULI','','C','500','MAJHOLI',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:10:34','2026-08-08 08:10:34',9),
+(66,'DR. SUNIL SONI','GP','Main market Manjholi','','C','500','MAJHOLI',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:11:24','2026-08-08 08:11:24',9),
+(67,'DR RAJESH VISHWAKARMA','GP','PANAGARA','','C','500','PANAGAR',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:15:23','2026-08-08 08:15:23',10),
+(68,'DR UPESH PATEL','GP','NAYAK CLINIC PANAGAR','','C','500','PANAGAR',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:16:11','2026-08-08 08:16:11',10),
+(69,'DR SURESH MEDICAL','GP','PANAGAR','','C','500','PANAGAR',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:16:59','2026-08-08 08:16:59',10),
+(70,'DR J K NEMA','DCH','MAHARAHPUR JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:18:52','2026-08-08 08:18:52',3),
+(71,'DR ASHWANI PATEL','MD','KAMAKHYA HOSPITAL MAHARAJPUR JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-08-08 08:20:42','2026-08-08 08:20:42',3),
+(72,'DR NEETU YADAV','MD','VIJAY NAGAR JABALPUR','','A','1000','Jabalpur',22,'approved',2,NULL,NULL,NULL,'2026-09-27 13:05:29','2026-09-28 12:00:25',3),
+(73,'Dr. Nandan Sharma','MD','GALAXY HOSPITAL JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-09-28 11:53:06','2026-09-28 11:53:06',3),
+(74,'Dr. Vijay Pratap Singh','MD','SHALBY HOSPITAL','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-09-28 11:54:26','2026-09-28 11:54:26',3),
+(75,'Dr. Shivangini Gupta','MD','APPOLO HOSPITAL JABALPUR','','A','1000','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-09-28 11:55:40','2026-09-28 11:55:40',3),
+(76,'Dr. Rashi Gupta','MD','APOLLO HOSPITAL JABALPUR','','A','1000','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-09-28 11:58:08','2026-09-28 11:58:08',3),
+(77,'Dr. Arpit Sohane','MD','ASHISH HOSPITAL JABALPUR','','C','1000','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-09-28 11:59:34','2026-09-28 11:59:34',3),
+(78,'Dr. Pradyumna Pan','SUR','ASHISH HOSPITAL JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-09-28 12:00:15','2026-09-28 12:00:15',3),
+(79,'dr Mansi Harshe','MD','MLB SCHOOL ROAD JABALPUR','','B','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-09-29 12:19:01','2026-09-29 12:19:01',3),
+(80,'Dr Satish Harshey','MBBS','OMEGA CHILDERN HOSPITAL AND MLB SCHOOL ROAD HARSHEY CLINIC','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-09-29 12:22:12','2026-09-29 12:22:12',3),
+(81,'Dr Girish Budhrani','MBBS','GORAKHAPUR JABALPUR','','C','500','Jabalpur',2,'approved',2,NULL,NULL,NULL,'2026-09-29 12:30:26','2026-09-29 12:30:26',3),
+(82,'Dr. Diksha Asati','md','Shalby Hospital jabalpur','','B','500','Jabalpur',22,'pending',NULL,NULL,NULL,NULL,'2026-09-29 12:41:43','2026-09-29 12:41:43',3),
+(84,'Dr. A.R. Maravi','DCH','Parihar Bhavan, Sadar chouraha Shashtriward, Bijauri, Narsinghpur','','C','500','Narsinghpur',22,'pending',NULL,NULL,NULL,NULL,'2026-09-29 12:58:17','2026-09-29 12:58:17',4),
+(86,'Dr. Pradeep Kumar Gupta','DCH','NEAR NIKHARA HOSPITAL ROAD','','C','500','Narsinghpur',22,'pending',NULL,NULL,NULL,NULL,'2026-09-29 13:02:34','2026-09-29 13:02:34',4),
+(89,'Dr. Paresh Jain','DCH','Bus Stand Road, Shastree Ward, Gadarwara','','C','500','Gadarwara',22,'pending',NULL,NULL,NULL,NULL,'2026-09-29 13:13:49','2026-09-29 13:13:49',6),
+(90,'Dr. Arun Dohre','DCH','Gadarwara, Madhya','','C','','Gadarwara',22,'pending',NULL,NULL,NULL,NULL,'2026-09-29 13:19:05','2026-09-29 13:19:05',6);
+/*!40000 ALTER TABLE `doctors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_detailing_chemists`
+--
+
+DROP TABLE IF EXISTS `e_detailing_chemists`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `e_detailing_chemists` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `plan_date` date NOT NULL,
+  `chemist_id` int(11) NOT NULL,
+  `source` varchar(20) NOT NULL DEFAULT 'manual',
+  `status` varchar(20) NOT NULL DEFAULT 'active',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `plan_date_chemist_id` (`plan_date`,`chemist_id`),
+  KEY `e_detailing_chemists_chemist_id_foreign` (`chemist_id`),
+  CONSTRAINT `e_detailing_chemists_chemist_id_foreign` FOREIGN KEY (`chemist_id`) REFERENCES `chemists` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_detailing_chemists`
+--
+
+LOCK TABLES `e_detailing_chemists` WRITE;
+/*!40000 ALTER TABLE `e_detailing_chemists` DISABLE KEYS */;
+/*!40000 ALTER TABLE `e_detailing_chemists` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_detailing_doctors`
+--
+
+DROP TABLE IF EXISTS `e_detailing_doctors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `e_detailing_doctors` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `plan_date` date NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `field_plan_id` int(11) DEFAULT NULL,
+  `source` varchar(20) NOT NULL DEFAULT 'tour_plan',
+  `status` varchar(20) NOT NULL DEFAULT 'active',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `plan_date_doctor_id` (`plan_date`,`doctor_id`),
+  KEY `e_detailing_doctors_doctor_id_foreign` (`doctor_id`),
+  KEY `e_detailing_doctors_field_plan_id_foreign` (`field_plan_id`),
+  CONSTRAINT `e_detailing_doctors_doctor_id_foreign` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `e_detailing_doctors_field_plan_id_foreign` FOREIGN KEY (`field_plan_id`) REFERENCES `field_plans` (`id`) ON DELETE CASCADE ON UPDATE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_detailing_doctors`
+--
+
+LOCK TABLES `e_detailing_doctors` WRITE;
+/*!40000 ALTER TABLE `e_detailing_doctors` DISABLE KEYS */;
+INSERT INTO `e_detailing_doctors` VALUES
+(2,'2026-07-06',6,NULL,'manual','active','2026-07-06 14:23:17','2026-07-06 14:23:17'),
+(5,'2026-07-10',11,65,'tour_plan','active','2026-07-10 04:48:16','2026-07-10 04:48:16'),
+(6,'2026-07-10',17,64,'tour_plan','active','2026-07-10 04:48:16','2026-07-10 04:48:16'),
+(9,'2026-07-17',13,NULL,'manual','active','2026-07-17 05:31:14','2026-07-17 05:31:14'),
+(10,'2026-07-17',4,NULL,'manual','active','2026-07-17 14:50:44','2026-07-17 14:50:45'),
+(12,'2026-07-20',17,NULL,'manual','active','2026-07-20 08:02:29','2026-07-20 08:02:29'),
+(16,'2026-07-24',29,NULL,'manual','active','2026-07-24 07:17:46','2026-07-24 07:17:46'),
+(17,'2026-07-25',29,NULL,'manual','active','2026-07-25 14:22:55','2026-07-25 14:22:55'),
+(19,'2026-07-28',29,NULL,'manual','active','2026-07-28 05:11:38','2026-07-28 05:11:38'),
+(20,'2026-07-29',39,NULL,'manual','active','2026-07-29 05:09:39','2026-07-29 05:09:39'),
+(26,'2026-08-05',29,NULL,'manual','active','2026-08-05 07:24:17','2026-08-05 07:24:17'),
+(27,'2026-08-06',39,NULL,'manual','active','2026-08-06 07:26:13','2026-08-06 07:26:13'),
+(29,'2026-08-10',29,NULL,'manual','active','2026-08-10 04:42:00','2026-08-10 04:42:00'),
+(32,'2026-08-13',39,NULL,'manual','active','2026-08-13 12:31:07','2026-08-13 12:31:07'),
+(42,'2026-08-31',39,NULL,'manual','active','2026-08-31 07:22:44','2026-08-31 07:23:09'),
+(49,'2026-09-02',39,NULL,'manual','active','2026-09-02 03:40:30','2026-09-02 03:40:30'),
+(50,'2026-09-03',39,NULL,'manual','active','2026-09-03 05:22:08','2026-09-03 05:22:08'),
+(51,'2026-09-05',39,NULL,'manual','active','2026-09-05 06:11:43','2026-09-05 06:11:43'),
+(52,'2026-09-08',39,NULL,'manual','active','2026-09-08 04:30:38','2026-09-08 04:30:38'),
+(53,'2026-09-09',39,NULL,'manual','active','2026-09-09 06:28:52','2026-09-09 06:28:52'),
+(54,'2026-09-10',39,NULL,'manual','active','2026-09-10 05:50:57','2026-09-10 05:50:57'),
+(55,'2026-09-11',17,NULL,'manual','active','2026-09-11 07:40:48','2026-09-11 07:40:48'),
+(56,'2026-09-15',17,NULL,'manual','active','2026-09-15 04:17:38','2026-09-15 04:17:38'),
+(57,'2026-09-16',39,NULL,'manual','active','2026-09-16 05:09:32','2026-09-16 05:09:32'),
+(58,'2026-09-17',39,NULL,'manual','active','2026-09-17 06:18:55','2026-09-17 06:18:55'),
+(59,'2026-09-18',71,NULL,'manual','active','2026-09-18 05:52:51','2026-09-18 05:52:51'),
+(60,'2026-09-19',17,NULL,'manual','active','2026-09-19 05:55:07','2026-09-19 05:55:07'),
+(61,'2026-09-21',17,NULL,'manual','active','2026-09-21 05:05:28','2026-09-21 05:05:28'),
+(62,'2026-09-22',39,NULL,'manual','active','2026-09-22 05:11:21','2026-09-22 05:11:21'),
+(63,'2026-09-23',39,NULL,'manual','active','2026-09-23 06:28:09','2026-09-23 06:28:09'),
+(64,'2026-09-24',39,NULL,'manual','active','2026-09-24 06:46:31','2026-09-24 06:46:31'),
+(65,'2026-09-26',29,NULL,'manual','active','2026-09-26 05:58:37','2026-09-26 05:58:37'),
+(66,'2026-09-28',39,NULL,'manual','active','2026-09-28 14:02:33','2026-09-28 14:02:33'),
+(67,'2026-09-29',26,NULL,'manual','active','2026-09-29 05:06:24','2026-09-29 05:06:24'),
+(68,'2026-09-30',17,NULL,'manual','active','2026-09-30 08:56:24','2026-09-30 08:56:24'),
+(69,'2026-10-01',39,496,'tour_plan','active','2026-10-01 04:59:34','2026-10-01 04:59:34'),
+(70,'2026-10-01',29,497,'tour_plan','active','2026-10-01 04:59:34','2026-10-01 04:59:34'),
+(71,'2026-10-01',27,498,'tour_plan','active','2026-10-01 04:59:34','2026-10-01 04:59:34');
+/*!40000 ALTER TABLE `e_detailing_doctors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_detailing_session_products`
+--
+
+DROP TABLE IF EXISTS `e_detailing_session_products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `e_detailing_session_products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `session_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `sequence_no` int(11) NOT NULL DEFAULT 1,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `e_detailing_session_products_session_id_foreign` (`session_id`),
+  KEY `e_detailing_session_products_product_id_foreign` (`product_id`),
+  CONSTRAINT `e_detailing_session_products_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `e_detailing_session_products_session_id_foreign` FOREIGN KEY (`session_id`) REFERENCES `e_detailing_sessions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=866 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_detailing_session_products`
+--
+
+LOCK TABLES `e_detailing_session_products` WRITE;
+/*!40000 ALTER TABLE `e_detailing_session_products` DISABLE KEYS */;
+INSERT INTO `e_detailing_session_products` VALUES
+(72,19,6,1,'2026-07-17 05:43:05','2026-07-17 05:43:05'),
+(73,19,7,2,'2026-07-17 05:43:05','2026-07-17 05:43:05'),
+(74,19,8,3,'2026-07-17 05:43:05','2026-07-17 05:43:05'),
+(75,19,9,4,'2026-07-17 05:43:05','2026-07-17 05:43:05'),
+(76,20,6,1,'2026-07-17 14:08:31','2026-07-17 14:08:31'),
+(77,20,7,2,'2026-07-17 14:08:31','2026-07-17 14:08:31'),
+(78,20,8,3,'2026-07-17 14:08:31','2026-07-17 14:08:31'),
+(79,20,9,4,'2026-07-17 14:08:31','2026-07-17 14:08:31'),
+(80,21,6,1,'2026-07-17 14:51:26','2026-07-17 14:51:26'),
+(81,21,7,2,'2026-07-17 14:51:26','2026-07-17 14:51:26'),
+(82,21,8,3,'2026-07-17 14:51:26','2026-07-17 14:51:26'),
+(83,21,9,4,'2026-07-17 14:51:26','2026-07-17 14:51:26'),
+(92,24,6,1,'2026-07-20 08:27:39','2026-07-20 08:27:39'),
+(93,24,7,2,'2026-07-20 08:27:39','2026-07-20 08:27:39'),
+(94,24,8,3,'2026-07-20 08:27:39','2026-07-20 08:27:39'),
+(95,24,9,4,'2026-07-20 08:27:39','2026-07-20 08:27:39'),
+(140,36,6,1,'2026-07-24 07:17:53','2026-07-24 07:17:53'),
+(141,36,7,2,'2026-07-24 07:17:53','2026-07-24 07:17:53'),
+(142,36,8,3,'2026-07-24 07:17:53','2026-07-24 07:17:53'),
+(143,36,9,4,'2026-07-24 07:17:53','2026-07-24 07:17:53'),
+(144,37,6,1,'2026-07-24 08:58:51','2026-07-24 08:58:51'),
+(145,37,7,2,'2026-07-24 08:58:51','2026-07-24 08:58:51'),
+(146,37,8,3,'2026-07-24 08:58:51','2026-07-24 08:58:51'),
+(147,37,9,4,'2026-07-24 08:58:51','2026-07-24 08:58:51'),
+(148,38,6,1,'2026-07-24 09:06:42','2026-07-24 09:06:42'),
+(149,38,7,2,'2026-07-24 09:06:42','2026-07-24 09:06:42'),
+(150,38,8,3,'2026-07-24 09:06:42','2026-07-24 09:06:42'),
+(151,38,9,4,'2026-07-24 09:06:42','2026-07-24 09:06:42'),
+(152,39,6,1,'2026-07-24 10:45:24','2026-07-24 10:45:24'),
+(153,39,7,2,'2026-07-24 10:45:24','2026-07-24 10:45:24'),
+(154,39,8,3,'2026-07-24 10:45:24','2026-07-24 10:45:24'),
+(155,39,9,4,'2026-07-24 10:45:24','2026-07-24 10:45:24'),
+(156,40,6,1,'2026-07-24 12:08:10','2026-07-24 12:08:10'),
+(157,40,7,2,'2026-07-24 12:08:10','2026-07-24 12:08:10'),
+(158,40,8,3,'2026-07-24 12:08:10','2026-07-24 12:08:10'),
+(159,40,9,4,'2026-07-24 12:08:10','2026-07-24 12:08:10'),
+(160,41,6,1,'2026-07-24 12:36:11','2026-07-24 12:36:11'),
+(161,41,7,2,'2026-07-24 12:36:11','2026-07-24 12:36:11'),
+(162,41,8,3,'2026-07-24 12:36:11','2026-07-24 12:36:11'),
+(163,41,9,4,'2026-07-24 12:36:11','2026-07-24 12:36:11'),
+(164,42,6,1,'2026-07-25 14:23:01','2026-07-25 14:23:01'),
+(165,42,7,2,'2026-07-25 14:23:01','2026-07-25 14:23:01'),
+(166,42,8,3,'2026-07-25 14:23:01','2026-07-25 14:23:01'),
+(167,42,9,4,'2026-07-25 14:23:01','2026-07-25 14:23:01'),
+(168,43,6,1,'2026-07-25 14:34:00','2026-07-25 14:34:00'),
+(169,43,7,2,'2026-07-25 14:34:00','2026-07-25 14:34:00'),
+(170,43,8,3,'2026-07-25 14:34:00','2026-07-25 14:34:00'),
+(171,43,9,4,'2026-07-25 14:34:00','2026-07-25 14:34:00'),
+(177,45,6,1,'2026-07-28 07:38:17','2026-07-28 07:38:17'),
+(178,45,7,2,'2026-07-28 07:38:17','2026-07-28 07:38:17'),
+(179,45,8,3,'2026-07-28 07:38:17','2026-07-28 07:38:17'),
+(180,45,9,4,'2026-07-28 07:38:17','2026-07-28 07:38:17'),
+(181,46,6,1,'2026-07-28 08:17:17','2026-07-28 08:17:17'),
+(182,46,7,2,'2026-07-28 08:17:17','2026-07-28 08:17:17'),
+(183,46,8,3,'2026-07-28 08:17:17','2026-07-28 08:17:17'),
+(184,46,9,4,'2026-07-28 08:17:17','2026-07-28 08:17:17'),
+(185,47,6,1,'2026-07-29 05:09:45','2026-07-29 05:09:45'),
+(186,47,7,2,'2026-07-29 05:09:45','2026-07-29 05:09:45'),
+(187,47,8,3,'2026-07-29 05:09:45','2026-07-29 05:09:45'),
+(188,47,9,4,'2026-07-29 05:09:45','2026-07-29 05:09:45'),
+(189,48,6,1,'2026-07-29 05:37:50','2026-07-29 05:37:50'),
+(190,48,7,2,'2026-07-29 05:37:50','2026-07-29 05:37:50'),
+(191,48,8,3,'2026-07-29 05:37:50','2026-07-29 05:37:50'),
+(192,48,9,4,'2026-07-29 05:37:50','2026-07-29 05:37:50'),
+(193,48,10,5,'2026-07-29 05:37:50','2026-07-29 05:37:50'),
+(194,49,6,1,'2026-07-29 06:03:07','2026-07-29 06:03:07'),
+(195,49,7,2,'2026-07-29 06:03:07','2026-07-29 06:03:07'),
+(196,49,8,3,'2026-07-29 06:03:07','2026-07-29 06:03:07'),
+(197,49,9,4,'2026-07-29 06:03:07','2026-07-29 06:03:07'),
+(198,49,10,5,'2026-07-29 06:03:07','2026-07-29 06:03:07'),
+(199,50,6,1,'2026-07-29 06:19:44','2026-07-29 06:19:44'),
+(200,50,7,2,'2026-07-29 06:19:44','2026-07-29 06:19:44'),
+(201,50,8,3,'2026-07-29 06:19:44','2026-07-29 06:19:44'),
+(202,50,9,4,'2026-07-29 06:19:44','2026-07-29 06:19:44'),
+(203,50,10,5,'2026-07-29 06:19:44','2026-07-29 06:19:44'),
+(308,73,6,1,'2026-08-05 07:24:22','2026-08-05 07:24:22'),
+(309,73,7,2,'2026-08-05 07:24:22','2026-08-05 07:24:22'),
+(310,73,8,3,'2026-08-05 07:24:22','2026-08-05 07:24:22'),
+(311,73,9,4,'2026-08-05 07:24:22','2026-08-05 07:24:22'),
+(312,73,10,5,'2026-08-05 07:24:22','2026-08-05 07:24:22'),
+(313,74,6,1,'2026-08-05 08:09:52','2026-08-05 08:09:52'),
+(314,74,7,2,'2026-08-05 08:09:52','2026-08-05 08:09:52'),
+(315,74,8,3,'2026-08-05 08:09:52','2026-08-05 08:09:52'),
+(316,74,9,4,'2026-08-05 08:09:52','2026-08-05 08:09:52'),
+(317,74,10,5,'2026-08-05 08:09:52','2026-08-05 08:09:52'),
+(323,76,6,1,'2026-08-06 08:01:58','2026-08-06 08:01:58'),
+(324,76,7,2,'2026-08-06 08:01:58','2026-08-06 08:01:58'),
+(325,76,8,3,'2026-08-06 08:01:58','2026-08-06 08:01:58'),
+(326,76,9,4,'2026-08-06 08:01:58','2026-08-06 08:01:58'),
+(327,76,10,5,'2026-08-06 08:01:58','2026-08-06 08:01:58'),
+(328,77,6,1,'2026-08-06 08:24:12','2026-08-06 08:24:12'),
+(329,77,7,2,'2026-08-06 08:24:12','2026-08-06 08:24:12'),
+(330,77,8,3,'2026-08-06 08:24:12','2026-08-06 08:24:12'),
+(331,77,9,4,'2026-08-06 08:24:12','2026-08-06 08:24:12'),
+(332,77,10,5,'2026-08-06 08:24:12','2026-08-06 08:24:12'),
+(333,78,6,1,'2026-08-06 09:06:27','2026-08-06 09:06:27'),
+(334,78,7,2,'2026-08-06 09:06:27','2026-08-06 09:06:27'),
+(335,78,8,3,'2026-08-06 09:06:27','2026-08-06 09:06:27'),
+(336,78,9,4,'2026-08-06 09:06:27','2026-08-06 09:06:27'),
+(337,78,10,5,'2026-08-06 09:06:27','2026-08-06 09:06:27'),
+(357,83,6,1,'2026-08-10 04:42:09','2026-08-10 04:42:09'),
+(358,83,7,2,'2026-08-10 04:42:09','2026-08-10 04:42:09'),
+(359,83,8,3,'2026-08-10 04:42:09','2026-08-10 04:42:09'),
+(360,83,9,4,'2026-08-10 04:42:09','2026-08-10 04:42:09'),
+(361,83,10,5,'2026-08-10 04:42:09','2026-08-10 04:42:09'),
+(362,84,6,1,'2026-08-10 05:55:48','2026-08-10 05:55:48'),
+(363,84,7,2,'2026-08-10 05:55:48','2026-08-10 05:55:48'),
+(364,84,8,3,'2026-08-10 05:55:48','2026-08-10 05:55:48'),
+(365,84,9,4,'2026-08-10 05:55:48','2026-08-10 05:55:48'),
+(366,84,10,5,'2026-08-10 05:55:48','2026-08-10 05:55:48'),
+(367,85,6,1,'2026-08-10 06:00:31','2026-08-10 06:00:31'),
+(368,85,7,2,'2026-08-10 06:00:31','2026-08-10 06:00:31'),
+(369,85,8,3,'2026-08-10 06:00:31','2026-08-10 06:00:31'),
+(370,85,9,4,'2026-08-10 06:00:31','2026-08-10 06:00:31'),
+(371,85,10,5,'2026-08-10 06:00:31','2026-08-10 06:00:31'),
+(405,93,6,1,'2026-08-13 12:31:20','2026-08-13 12:31:20'),
+(406,93,7,2,'2026-08-13 12:31:20','2026-08-13 12:31:20'),
+(407,93,8,3,'2026-08-13 12:31:20','2026-08-13 12:31:20'),
+(408,93,9,4,'2026-08-13 12:31:20','2026-08-13 12:31:20'),
+(409,93,10,5,'2026-08-13 12:31:20','2026-08-13 12:31:20'),
+(545,121,6,1,'2026-08-31 07:23:45','2026-08-31 07:23:45'),
+(546,121,7,2,'2026-08-31 07:23:45','2026-08-31 07:23:45'),
+(547,121,8,3,'2026-08-31 07:23:45','2026-08-31 07:23:45'),
+(548,121,9,4,'2026-08-31 07:23:45','2026-08-31 07:23:45'),
+(549,121,10,5,'2026-08-31 07:23:45','2026-08-31 07:23:45'),
+(550,122,6,1,'2026-08-31 13:54:10','2026-08-31 13:54:10'),
+(551,122,7,2,'2026-08-31 13:54:10','2026-08-31 13:54:10'),
+(552,122,8,3,'2026-08-31 13:54:10','2026-08-31 13:54:10'),
+(553,122,9,4,'2026-08-31 13:54:10','2026-08-31 13:54:10'),
+(554,122,10,5,'2026-08-31 13:54:10','2026-08-31 13:54:10'),
+(570,126,6,1,'2026-09-02 05:00:21','2026-09-02 05:00:21'),
+(571,126,7,2,'2026-09-02 05:00:21','2026-09-02 05:00:21'),
+(572,126,8,3,'2026-09-02 05:00:21','2026-09-02 05:00:21'),
+(573,126,9,4,'2026-09-02 05:00:21','2026-09-02 05:00:21'),
+(574,126,10,5,'2026-09-02 05:00:21','2026-09-02 05:00:21'),
+(575,127,6,1,'2026-09-02 05:25:11','2026-09-02 05:25:11'),
+(576,127,7,2,'2026-09-02 05:25:11','2026-09-02 05:25:11'),
+(577,127,8,3,'2026-09-02 05:25:11','2026-09-02 05:25:11'),
+(578,127,9,4,'2026-09-02 05:25:11','2026-09-02 05:25:11'),
+(579,127,10,5,'2026-09-02 05:25:11','2026-09-02 05:25:11'),
+(580,128,6,1,'2026-09-03 05:22:13','2026-09-03 05:22:13'),
+(581,128,7,2,'2026-09-03 05:22:13','2026-09-03 05:22:13'),
+(582,128,8,3,'2026-09-03 05:22:13','2026-09-03 05:22:13'),
+(583,128,9,4,'2026-09-03 05:22:13','2026-09-03 05:22:13'),
+(584,128,10,5,'2026-09-03 05:22:13','2026-09-03 05:22:13'),
+(585,129,6,1,'2026-09-03 06:19:03','2026-09-03 06:19:03'),
+(586,129,7,2,'2026-09-03 06:19:03','2026-09-03 06:19:03'),
+(587,129,8,3,'2026-09-03 06:19:03','2026-09-03 06:19:03'),
+(588,129,9,4,'2026-09-03 06:19:03','2026-09-03 06:19:03'),
+(589,129,10,5,'2026-09-03 06:19:03','2026-09-03 06:19:03'),
+(590,130,6,1,'2026-09-03 06:56:19','2026-09-03 06:56:19'),
+(591,130,7,2,'2026-09-03 06:56:19','2026-09-03 06:56:19'),
+(592,130,8,3,'2026-09-03 06:56:19','2026-09-03 06:56:19'),
+(593,130,9,4,'2026-09-03 06:56:20','2026-09-03 06:56:20'),
+(594,130,10,5,'2026-09-03 06:56:20','2026-09-03 06:56:20'),
+(595,131,6,1,'2026-09-03 07:34:08','2026-09-03 07:34:08'),
+(596,131,7,2,'2026-09-03 07:34:08','2026-09-03 07:34:08'),
+(597,131,8,3,'2026-09-03 07:34:08','2026-09-03 07:34:08'),
+(598,131,9,4,'2026-09-03 07:34:08','2026-09-03 07:34:08'),
+(599,131,10,5,'2026-09-03 07:34:08','2026-09-03 07:34:08'),
+(600,132,6,1,'2026-09-03 07:54:27','2026-09-03 07:54:27'),
+(601,132,7,2,'2026-09-03 07:54:27','2026-09-03 07:54:27'),
+(602,132,8,3,'2026-09-03 07:54:27','2026-09-03 07:54:27'),
+(603,132,9,4,'2026-09-03 07:54:27','2026-09-03 07:54:27'),
+(604,132,10,5,'2026-09-03 07:54:27','2026-09-03 07:54:27'),
+(605,133,6,1,'2026-09-05 06:11:48','2026-09-05 06:11:48'),
+(606,133,7,2,'2026-09-05 06:11:48','2026-09-05 06:11:48'),
+(607,133,8,3,'2026-09-05 06:11:48','2026-09-05 06:11:48'),
+(608,133,9,4,'2026-09-05 06:11:48','2026-09-05 06:11:48'),
+(609,133,10,5,'2026-09-05 06:11:48','2026-09-05 06:11:48'),
+(610,134,6,1,'2026-09-05 06:26:52','2026-09-05 06:26:52'),
+(611,134,7,2,'2026-09-05 06:26:52','2026-09-05 06:26:52'),
+(612,134,8,3,'2026-09-05 06:26:52','2026-09-05 06:26:52'),
+(613,134,9,4,'2026-09-05 06:26:52','2026-09-05 06:26:52'),
+(614,134,10,5,'2026-09-05 06:26:52','2026-09-05 06:26:52'),
+(615,135,6,1,'2026-09-05 06:40:12','2026-09-05 06:40:12'),
+(616,135,7,2,'2026-09-05 06:40:12','2026-09-05 06:40:12'),
+(617,135,8,3,'2026-09-05 06:40:12','2026-09-05 06:40:12'),
+(618,135,9,4,'2026-09-05 06:40:12','2026-09-05 06:40:12'),
+(619,135,10,5,'2026-09-05 06:40:12','2026-09-05 06:40:12'),
+(620,136,6,1,'2026-09-05 07:25:18','2026-09-05 07:25:18'),
+(621,136,7,2,'2026-09-05 07:25:18','2026-09-05 07:25:18'),
+(622,136,8,3,'2026-09-05 07:25:18','2026-09-05 07:25:18'),
+(623,136,9,4,'2026-09-05 07:25:18','2026-09-05 07:25:18'),
+(624,136,10,5,'2026-09-05 07:25:18','2026-09-05 07:25:18'),
+(625,137,6,1,'2026-09-05 08:15:49','2026-09-05 08:15:49'),
+(626,137,7,2,'2026-09-05 08:15:49','2026-09-05 08:15:49'),
+(627,137,8,3,'2026-09-05 08:15:49','2026-09-05 08:15:49'),
+(628,137,9,4,'2026-09-05 08:15:49','2026-09-05 08:15:49'),
+(629,137,10,5,'2026-09-05 08:15:49','2026-09-05 08:15:49'),
+(630,138,6,1,'2026-09-08 04:30:44','2026-09-08 04:30:44'),
+(631,138,7,2,'2026-09-08 04:30:44','2026-09-08 04:30:44'),
+(632,138,8,3,'2026-09-08 04:30:44','2026-09-08 04:30:44'),
+(633,138,9,4,'2026-09-08 04:30:44','2026-09-08 04:30:44'),
+(634,138,10,5,'2026-09-08 04:30:44','2026-09-08 04:30:44'),
+(635,139,6,1,'2026-09-08 05:18:38','2026-09-08 05:18:38'),
+(636,139,9,2,'2026-09-08 05:18:38','2026-09-08 05:18:38'),
+(637,139,10,3,'2026-09-08 05:18:38','2026-09-08 05:18:38'),
+(638,140,6,1,'2026-09-08 07:16:54','2026-09-08 07:16:54'),
+(639,140,7,2,'2026-09-08 07:16:54','2026-09-08 07:16:54'),
+(640,140,8,3,'2026-09-08 07:16:54','2026-09-08 07:16:54'),
+(641,140,9,4,'2026-09-08 07:16:54','2026-09-08 07:16:54'),
+(642,140,10,5,'2026-09-08 07:16:54','2026-09-08 07:16:54'),
+(643,141,6,1,'2026-09-08 08:14:01','2026-09-08 08:14:01'),
+(644,141,7,2,'2026-09-08 08:14:01','2026-09-08 08:14:01'),
+(645,141,8,3,'2026-09-08 08:14:01','2026-09-08 08:14:01'),
+(646,141,9,4,'2026-09-08 08:14:01','2026-09-08 08:14:01'),
+(647,141,10,5,'2026-09-08 08:14:01','2026-09-08 08:14:01'),
+(648,142,6,1,'2026-09-08 08:43:58','2026-09-08 08:43:58'),
+(649,142,7,2,'2026-09-08 08:43:58','2026-09-08 08:43:58'),
+(650,142,8,3,'2026-09-08 08:43:58','2026-09-08 08:43:58'),
+(651,142,9,4,'2026-09-08 08:43:58','2026-09-08 08:43:58'),
+(652,142,10,5,'2026-09-08 08:43:58','2026-09-08 08:43:58'),
+(653,143,6,1,'2026-09-09 06:28:59','2026-09-09 06:28:59'),
+(654,143,7,2,'2026-09-09 06:28:59','2026-09-09 06:28:59'),
+(655,143,8,3,'2026-09-09 06:28:59','2026-09-09 06:28:59'),
+(656,143,9,4,'2026-09-09 06:28:59','2026-09-09 06:28:59'),
+(657,143,10,5,'2026-09-09 06:28:59','2026-09-09 06:28:59'),
+(658,144,6,1,'2026-09-09 07:21:02','2026-09-09 07:21:02'),
+(659,144,7,2,'2026-09-09 07:21:02','2026-09-09 07:21:02'),
+(660,144,8,3,'2026-09-09 07:21:02','2026-09-09 07:21:02'),
+(661,144,9,4,'2026-09-09 07:21:02','2026-09-09 07:21:02'),
+(662,144,10,5,'2026-09-09 07:21:02','2026-09-09 07:21:02'),
+(663,145,6,1,'2026-09-09 08:01:24','2026-09-09 08:01:24'),
+(664,145,8,2,'2026-09-09 08:01:24','2026-09-09 08:01:24'),
+(665,145,9,3,'2026-09-09 08:01:24','2026-09-09 08:01:24'),
+(666,145,10,4,'2026-09-09 08:01:24','2026-09-09 08:01:24'),
+(667,146,6,1,'2026-09-09 08:34:57','2026-09-09 08:34:57'),
+(668,146,7,2,'2026-09-09 08:34:57','2026-09-09 08:34:57'),
+(669,146,8,3,'2026-09-09 08:34:57','2026-09-09 08:34:57'),
+(670,146,9,4,'2026-09-09 08:34:57','2026-09-09 08:34:57'),
+(671,146,10,5,'2026-09-09 08:34:57','2026-09-09 08:34:57'),
+(672,147,6,1,'2026-09-10 05:51:02','2026-09-10 05:51:02'),
+(673,147,7,2,'2026-09-10 05:51:02','2026-09-10 05:51:02'),
+(674,147,8,3,'2026-09-10 05:51:02','2026-09-10 05:51:02'),
+(675,147,9,4,'2026-09-10 05:51:02','2026-09-10 05:51:02'),
+(676,147,10,5,'2026-09-10 05:51:02','2026-09-10 05:51:02'),
+(677,148,6,1,'2026-09-10 07:05:02','2026-09-10 07:05:02'),
+(678,148,7,2,'2026-09-10 07:05:02','2026-09-10 07:05:02'),
+(679,148,8,3,'2026-09-10 07:05:02','2026-09-10 07:05:02'),
+(680,148,9,4,'2026-09-10 07:05:02','2026-09-10 07:05:02'),
+(681,148,10,5,'2026-09-10 07:05:02','2026-09-10 07:05:02'),
+(682,149,6,1,'2026-09-11 07:40:52','2026-09-11 07:40:52'),
+(683,149,7,2,'2026-09-11 07:40:52','2026-09-11 07:40:52'),
+(684,149,8,3,'2026-09-11 07:40:52','2026-09-11 07:40:52'),
+(685,149,9,4,'2026-09-11 07:40:52','2026-09-11 07:40:52'),
+(686,150,6,1,'2026-09-15 05:48:51','2026-09-15 05:48:51'),
+(687,150,7,2,'2026-09-15 05:48:51','2026-09-15 05:48:51'),
+(688,150,8,3,'2026-09-15 05:48:51','2026-09-15 05:48:51'),
+(689,150,9,4,'2026-09-15 05:48:51','2026-09-15 05:48:51'),
+(690,150,10,5,'2026-09-15 05:48:51','2026-09-15 05:48:51'),
+(691,151,6,1,'2026-09-15 07:33:39','2026-09-15 07:33:39'),
+(692,151,7,2,'2026-09-15 07:33:39','2026-09-15 07:33:39'),
+(693,151,8,3,'2026-09-15 07:33:39','2026-09-15 07:33:39'),
+(694,151,9,4,'2026-09-15 07:33:39','2026-09-15 07:33:39'),
+(695,151,10,5,'2026-09-15 07:33:39','2026-09-15 07:33:39'),
+(696,152,6,1,'2026-09-16 05:09:38','2026-09-16 05:09:38'),
+(697,152,7,2,'2026-09-16 05:09:38','2026-09-16 05:09:38'),
+(698,152,8,3,'2026-09-16 05:09:38','2026-09-16 05:09:38'),
+(699,152,9,4,'2026-09-16 05:09:38','2026-09-16 05:09:38'),
+(700,152,10,5,'2026-09-16 05:09:38','2026-09-16 05:09:38'),
+(701,153,6,1,'2026-09-16 08:05:03','2026-09-16 08:05:03'),
+(702,153,7,2,'2026-09-16 08:05:03','2026-09-16 08:05:03'),
+(703,153,8,3,'2026-09-16 08:05:03','2026-09-16 08:05:03'),
+(704,153,9,4,'2026-09-16 08:05:03','2026-09-16 08:05:03'),
+(705,153,10,5,'2026-09-16 08:05:03','2026-09-16 08:05:03'),
+(706,154,6,1,'2026-09-17 06:19:03','2026-09-17 06:19:03'),
+(707,154,7,2,'2026-09-17 06:19:03','2026-09-17 06:19:03'),
+(708,154,8,3,'2026-09-17 06:19:03','2026-09-17 06:19:03'),
+(709,154,9,4,'2026-09-17 06:19:03','2026-09-17 06:19:03'),
+(710,154,10,5,'2026-09-17 06:19:03','2026-09-17 06:19:03'),
+(711,155,6,1,'2026-09-17 07:36:03','2026-09-17 07:36:03'),
+(712,155,7,2,'2026-09-17 07:36:03','2026-09-17 07:36:03'),
+(713,155,8,3,'2026-09-17 07:36:03','2026-09-17 07:36:03'),
+(714,155,9,4,'2026-09-17 07:36:03','2026-09-17 07:36:03'),
+(715,155,10,5,'2026-09-17 07:36:03','2026-09-17 07:36:03'),
+(716,156,6,1,'2026-09-18 05:52:56','2026-09-18 05:52:56'),
+(717,156,7,2,'2026-09-18 05:52:56','2026-09-18 05:52:56'),
+(718,156,8,3,'2026-09-18 05:52:56','2026-09-18 05:52:56'),
+(719,156,9,4,'2026-09-18 05:52:56','2026-09-18 05:52:56'),
+(720,156,10,5,'2026-09-18 05:52:56','2026-09-18 05:52:56'),
+(721,157,6,1,'2026-09-18 07:35:20','2026-09-18 07:35:20'),
+(722,157,8,2,'2026-09-18 07:35:20','2026-09-18 07:35:20'),
+(723,157,9,3,'2026-09-18 07:35:20','2026-09-18 07:35:20'),
+(724,158,6,1,'2026-09-18 09:38:08','2026-09-18 09:38:08'),
+(725,158,7,2,'2026-09-18 09:38:08','2026-09-18 09:38:08'),
+(726,158,8,3,'2026-09-18 09:38:08','2026-09-18 09:38:08'),
+(727,158,9,4,'2026-09-18 09:38:08','2026-09-18 09:38:08'),
+(728,158,10,5,'2026-09-18 09:38:08','2026-09-18 09:38:08'),
+(729,159,6,1,'2026-09-18 09:45:21','2026-09-18 09:45:21'),
+(730,159,7,2,'2026-09-18 09:45:21','2026-09-18 09:45:21'),
+(731,159,8,3,'2026-09-18 09:45:21','2026-09-18 09:45:21'),
+(732,159,9,4,'2026-09-18 09:45:21','2026-09-18 09:45:21'),
+(733,159,10,5,'2026-09-18 09:45:21','2026-09-18 09:45:21'),
+(734,160,6,1,'2026-09-19 05:55:13','2026-09-19 05:55:13'),
+(735,160,7,2,'2026-09-19 05:55:13','2026-09-19 05:55:13'),
+(736,160,8,3,'2026-09-19 05:55:13','2026-09-19 05:55:13'),
+(737,160,9,4,'2026-09-19 05:55:13','2026-09-19 05:55:13'),
+(738,160,10,5,'2026-09-19 05:55:13','2026-09-19 05:55:13'),
+(739,161,6,1,'2026-09-21 05:05:32','2026-09-21 05:05:32'),
+(740,161,7,2,'2026-09-21 05:05:33','2026-09-21 05:05:33'),
+(741,161,8,3,'2026-09-21 05:05:33','2026-09-21 05:05:33'),
+(742,161,9,4,'2026-09-21 05:05:33','2026-09-21 05:05:33'),
+(743,161,10,5,'2026-09-21 05:05:33','2026-09-21 05:05:33'),
+(744,162,6,1,'2026-09-21 05:38:16','2026-09-21 05:38:16'),
+(745,162,7,2,'2026-09-21 05:38:16','2026-09-21 05:38:16'),
+(746,162,8,3,'2026-09-21 05:38:16','2026-09-21 05:38:16'),
+(747,162,9,4,'2026-09-21 05:38:16','2026-09-21 05:38:16'),
+(748,162,10,5,'2026-09-21 05:38:16','2026-09-21 05:38:16'),
+(749,163,6,1,'2026-09-21 06:41:53','2026-09-21 06:41:53'),
+(750,163,7,2,'2026-09-21 06:41:53','2026-09-21 06:41:53'),
+(751,163,8,3,'2026-09-21 06:41:53','2026-09-21 06:41:53'),
+(752,164,6,1,'2026-09-21 07:03:36','2026-09-21 07:03:36'),
+(753,164,7,2,'2026-09-21 07:03:36','2026-09-21 07:03:36'),
+(754,164,8,3,'2026-09-21 07:03:36','2026-09-21 07:03:36'),
+(755,164,9,4,'2026-09-21 07:03:36','2026-09-21 07:03:36'),
+(756,164,10,5,'2026-09-21 07:03:36','2026-09-21 07:03:36'),
+(757,165,6,1,'2026-09-22 05:11:27','2026-09-22 05:11:27'),
+(758,165,7,2,'2026-09-22 05:11:27','2026-09-22 05:11:27'),
+(759,165,8,3,'2026-09-22 05:11:27','2026-09-22 05:11:27'),
+(760,165,9,4,'2026-09-22 05:11:27','2026-09-22 05:11:27'),
+(761,165,10,5,'2026-09-22 05:11:27','2026-09-22 05:11:27'),
+(762,166,6,1,'2026-09-22 05:56:01','2026-09-22 05:56:01'),
+(763,166,7,2,'2026-09-22 05:56:01','2026-09-22 05:56:01'),
+(764,166,8,3,'2026-09-22 05:56:01','2026-09-22 05:56:01'),
+(765,166,9,4,'2026-09-22 05:56:01','2026-09-22 05:56:01'),
+(766,166,10,5,'2026-09-22 05:56:01','2026-09-22 05:56:01'),
+(767,167,6,1,'2026-09-22 06:31:41','2026-09-22 06:31:41'),
+(768,167,7,2,'2026-09-22 06:31:41','2026-09-22 06:31:41'),
+(769,167,8,3,'2026-09-22 06:31:41','2026-09-22 06:31:41'),
+(770,167,9,4,'2026-09-22 06:31:41','2026-09-22 06:31:41'),
+(771,168,6,1,'2026-09-22 07:22:16','2026-09-22 07:22:16'),
+(772,168,7,2,'2026-09-22 07:22:16','2026-09-22 07:22:16'),
+(773,168,8,3,'2026-09-22 07:22:16','2026-09-22 07:22:16'),
+(774,168,9,4,'2026-09-22 07:22:16','2026-09-22 07:22:16'),
+(775,168,10,5,'2026-09-22 07:22:16','2026-09-22 07:22:16'),
+(776,169,6,1,'2026-09-22 08:48:34','2026-09-22 08:48:34'),
+(777,169,7,2,'2026-09-22 08:48:34','2026-09-22 08:48:34'),
+(778,169,8,3,'2026-09-22 08:48:34','2026-09-22 08:48:34'),
+(779,169,9,4,'2026-09-22 08:48:34','2026-09-22 08:48:34'),
+(780,169,10,5,'2026-09-22 08:48:34','2026-09-22 08:48:34'),
+(781,170,6,1,'2026-09-24 06:46:37','2026-09-24 06:46:37'),
+(782,170,7,2,'2026-09-24 06:46:37','2026-09-24 06:46:37'),
+(783,170,8,3,'2026-09-24 06:46:37','2026-09-24 06:46:37'),
+(784,170,9,4,'2026-09-24 06:46:37','2026-09-24 06:46:37'),
+(785,170,10,5,'2026-09-24 06:46:37','2026-09-24 06:46:37'),
+(786,171,6,1,'2026-09-26 05:58:42','2026-09-26 05:58:42'),
+(787,171,7,2,'2026-09-26 05:58:42','2026-09-26 05:58:42'),
+(788,171,8,3,'2026-09-26 05:58:42','2026-09-26 05:58:42'),
+(789,171,9,4,'2026-09-26 05:58:42','2026-09-26 05:58:42'),
+(790,171,10,5,'2026-09-26 05:58:42','2026-09-26 05:58:42'),
+(791,172,6,1,'2026-09-26 07:07:49','2026-09-26 07:07:49'),
+(792,172,7,2,'2026-09-26 07:07:49','2026-09-26 07:07:49'),
+(793,172,8,3,'2026-09-26 07:07:49','2026-09-26 07:07:49'),
+(794,172,9,4,'2026-09-26 07:07:49','2026-09-26 07:07:49'),
+(795,172,10,5,'2026-09-26 07:07:49','2026-09-26 07:07:49'),
+(796,173,6,1,'2026-09-28 14:02:39','2026-09-28 14:02:39'),
+(797,173,7,2,'2026-09-28 14:02:39','2026-09-28 14:02:39'),
+(798,173,8,3,'2026-09-28 14:02:39','2026-09-28 14:02:39'),
+(799,173,9,4,'2026-09-28 14:02:39','2026-09-28 14:02:39'),
+(800,173,10,5,'2026-09-28 14:02:39','2026-09-28 14:02:39'),
+(801,174,6,1,'2026-09-29 05:06:29','2026-09-29 05:06:29'),
+(802,174,7,2,'2026-09-29 05:06:29','2026-09-29 05:06:29'),
+(803,174,8,3,'2026-09-29 05:06:29','2026-09-29 05:06:29'),
+(804,174,9,4,'2026-09-29 05:06:29','2026-09-29 05:06:29'),
+(805,174,10,5,'2026-09-29 05:06:29','2026-09-29 05:06:29'),
+(806,175,6,1,'2026-09-29 05:31:42','2026-09-29 05:31:42'),
+(807,175,7,2,'2026-09-29 05:31:42','2026-09-29 05:31:42'),
+(808,175,8,3,'2026-09-29 05:31:42','2026-09-29 05:31:42'),
+(809,175,9,4,'2026-09-29 05:31:42','2026-09-29 05:31:42'),
+(810,175,10,5,'2026-09-29 05:31:42','2026-09-29 05:31:42'),
+(811,176,6,1,'2026-09-29 06:00:26','2026-09-29 06:00:26'),
+(812,176,7,2,'2026-09-29 06:00:26','2026-09-29 06:00:26'),
+(813,176,8,3,'2026-09-29 06:00:26','2026-09-29 06:00:26'),
+(814,176,9,4,'2026-09-29 06:00:26','2026-09-29 06:00:26'),
+(815,176,10,5,'2026-09-29 06:00:26','2026-09-29 06:00:26'),
+(816,177,6,1,'2026-09-29 06:42:56','2026-09-29 06:42:56'),
+(817,177,7,2,'2026-09-29 06:42:56','2026-09-29 06:42:56'),
+(818,177,8,3,'2026-09-29 06:42:56','2026-09-29 06:42:56'),
+(819,177,9,4,'2026-09-29 06:42:56','2026-09-29 06:42:56'),
+(820,177,10,5,'2026-09-29 06:42:56','2026-09-29 06:42:56'),
+(821,178,6,1,'2026-09-29 07:30:38','2026-09-29 07:30:38'),
+(822,178,7,2,'2026-09-29 07:30:38','2026-09-29 07:30:38'),
+(823,178,8,3,'2026-09-29 07:30:38','2026-09-29 07:30:38'),
+(824,178,9,4,'2026-09-29 07:30:38','2026-09-29 07:30:38'),
+(825,178,10,5,'2026-09-29 07:30:38','2026-09-29 07:30:38'),
+(826,179,6,1,'2026-09-30 08:56:38','2026-09-30 08:56:38'),
+(827,179,7,2,'2026-09-30 08:56:38','2026-09-30 08:56:38'),
+(828,179,8,3,'2026-09-30 08:56:38','2026-09-30 08:56:38'),
+(829,179,9,4,'2026-09-30 08:56:38','2026-09-30 08:56:38'),
+(830,179,10,5,'2026-09-30 08:56:38','2026-09-30 08:56:38'),
+(831,180,6,1,'2026-09-30 15:04:05','2026-09-30 15:04:05'),
+(832,180,7,2,'2026-09-30 15:04:05','2026-09-30 15:04:05'),
+(833,180,8,3,'2026-09-30 15:04:05','2026-09-30 15:04:05'),
+(834,180,9,4,'2026-09-30 15:04:05','2026-09-30 15:04:05'),
+(835,180,10,5,'2026-09-30 15:04:05','2026-09-30 15:04:05'),
+(836,181,6,1,'2026-10-01 04:59:43','2026-10-01 04:59:43'),
+(837,181,7,2,'2026-10-01 04:59:43','2026-10-01 04:59:43'),
+(838,181,8,3,'2026-10-01 04:59:43','2026-10-01 04:59:43'),
+(839,181,9,4,'2026-10-01 04:59:43','2026-10-01 04:59:43'),
+(840,181,10,5,'2026-10-01 04:59:43','2026-10-01 04:59:43'),
+(841,182,6,1,'2026-10-01 06:02:02','2026-10-01 06:02:02'),
+(842,182,7,2,'2026-10-01 06:02:02','2026-10-01 06:02:02'),
+(843,182,8,3,'2026-10-01 06:02:02','2026-10-01 06:02:02'),
+(844,182,9,4,'2026-10-01 06:02:02','2026-10-01 06:02:02'),
+(845,182,10,5,'2026-10-01 06:02:02','2026-10-01 06:02:02'),
+(846,183,6,1,'2026-10-01 06:55:43','2026-10-01 06:55:43'),
+(847,183,7,2,'2026-10-01 06:55:43','2026-10-01 06:55:43'),
+(848,183,8,3,'2026-10-01 06:55:43','2026-10-01 06:55:43'),
+(849,183,9,4,'2026-10-01 06:55:43','2026-10-01 06:55:43'),
+(850,183,10,5,'2026-10-01 06:55:43','2026-10-01 06:55:43'),
+(851,184,6,1,'2026-10-01 07:23:10','2026-10-01 07:23:10'),
+(852,184,7,2,'2026-10-01 07:23:10','2026-10-01 07:23:10'),
+(853,184,8,3,'2026-10-01 07:23:10','2026-10-01 07:23:10'),
+(854,184,9,4,'2026-10-01 07:23:10','2026-10-01 07:23:10'),
+(855,184,10,5,'2026-10-01 07:23:10','2026-10-01 07:23:10'),
+(856,185,6,1,'2026-10-01 08:04:37','2026-10-01 08:04:37'),
+(857,185,7,2,'2026-10-01 08:04:37','2026-10-01 08:04:37'),
+(858,185,8,3,'2026-10-01 08:04:37','2026-10-01 08:04:37'),
+(859,185,9,4,'2026-10-01 08:04:37','2026-10-01 08:04:37'),
+(860,185,10,5,'2026-10-01 08:04:37','2026-10-01 08:04:37'),
+(861,186,6,1,'2026-10-01 08:17:05','2026-10-01 08:17:05'),
+(862,186,7,2,'2026-10-01 08:17:05','2026-10-01 08:17:05'),
+(863,186,8,3,'2026-10-01 08:17:05','2026-10-01 08:17:05'),
+(864,186,9,4,'2026-10-01 08:17:05','2026-10-01 08:17:05'),
+(865,186,10,5,'2026-10-01 08:17:05','2026-10-01 08:17:05');
+/*!40000 ALTER TABLE `e_detailing_session_products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_detailing_sessions`
+--
+
+DROP TABLE IF EXISTS `e_detailing_sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `e_detailing_sessions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `e_detailing_doctor_id` int(11) NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `field_plan_id` int(11) DEFAULT NULL,
+  `plan_date` date NOT NULL,
+  `started_at` datetime NOT NULL,
+  `ended_at` datetime DEFAULT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'active',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `e_detailing_sessions_e_detailing_doctor_id_foreign` (`e_detailing_doctor_id`),
+  KEY `e_detailing_sessions_doctor_id_foreign` (`doctor_id`),
+  KEY `e_detailing_sessions_field_plan_id_foreign` (`field_plan_id`),
+  CONSTRAINT `e_detailing_sessions_doctor_id_foreign` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `e_detailing_sessions_e_detailing_doctor_id_foreign` FOREIGN KEY (`e_detailing_doctor_id`) REFERENCES `e_detailing_doctors` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `e_detailing_sessions_field_plan_id_foreign` FOREIGN KEY (`field_plan_id`) REFERENCES `field_plans` (`id`) ON DELETE CASCADE ON UPDATE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_detailing_sessions`
+--
+
+LOCK TABLES `e_detailing_sessions` WRITE;
+/*!40000 ALTER TABLE `e_detailing_sessions` DISABLE KEYS */;
+INSERT INTO `e_detailing_sessions` VALUES
+(4,2,6,NULL,'2026-07-06','2026-07-06 14:23:28',NULL,'active','2026-07-06 14:23:28','2026-07-06 14:23:28'),
+(19,9,13,NULL,'2026-07-17','2026-07-17 05:43:05','2026-07-17 05:43:57','completed','2026-07-17 05:43:05','2026-07-17 05:43:57'),
+(20,9,13,NULL,'2026-07-17','2026-07-17 14:08:31','2026-07-17 14:50:36','completed','2026-07-17 14:08:31','2026-07-17 14:50:36'),
+(21,10,4,NULL,'2026-07-17','2026-07-17 14:51:26',NULL,'active','2026-07-17 14:51:26','2026-07-17 14:51:26'),
+(24,12,17,NULL,'2026-07-20','2026-07-20 08:27:39','2026-07-20 08:31:11','completed','2026-07-20 08:27:39','2026-07-20 08:31:11'),
+(36,16,29,NULL,'2026-07-24','2026-07-24 07:17:53','2026-07-24 08:58:46','completed','2026-07-24 07:17:53','2026-07-24 08:58:46'),
+(37,16,29,NULL,'2026-07-24','2026-07-24 08:58:51','2026-07-24 09:06:36','completed','2026-07-24 08:58:51','2026-07-24 09:06:36'),
+(38,16,29,NULL,'2026-07-24','2026-07-24 09:06:42','2026-07-24 10:45:18','completed','2026-07-24 09:06:42','2026-07-24 10:45:18'),
+(39,16,29,NULL,'2026-07-24','2026-07-24 10:45:24','2026-07-24 12:08:04','completed','2026-07-24 10:45:24','2026-07-24 12:08:04'),
+(40,16,29,NULL,'2026-07-24','2026-07-24 12:08:10','2026-07-24 12:36:03','completed','2026-07-24 12:08:10','2026-07-24 12:36:03'),
+(41,16,29,NULL,'2026-07-24','2026-07-24 12:36:11',NULL,'active','2026-07-24 12:36:11','2026-07-24 12:36:11'),
+(42,17,29,NULL,'2026-07-25','2026-07-25 14:23:01','2026-07-25 14:33:52','completed','2026-07-25 14:23:01','2026-07-25 14:33:52'),
+(43,17,29,NULL,'2026-07-25','2026-07-25 14:34:00',NULL,'active','2026-07-25 14:34:00','2026-07-25 14:34:00'),
+(45,19,29,NULL,'2026-07-28','2026-07-28 07:38:17','2026-07-28 07:49:11','completed','2026-07-28 07:38:17','2026-07-28 07:49:11'),
+(46,19,29,NULL,'2026-07-28','2026-07-28 08:17:17',NULL,'active','2026-07-28 08:17:17','2026-07-28 08:17:17'),
+(47,20,39,NULL,'2026-07-29','2026-07-29 05:09:45','2026-07-29 05:37:39','completed','2026-07-29 05:09:45','2026-07-29 05:37:39'),
+(48,20,39,NULL,'2026-07-29','2026-07-29 05:37:50','2026-07-29 06:02:59','completed','2026-07-29 05:37:50','2026-07-29 06:02:59'),
+(49,20,39,NULL,'2026-07-29','2026-07-29 06:03:07','2026-07-29 06:19:34','completed','2026-07-29 06:03:07','2026-07-29 06:19:34'),
+(50,20,39,NULL,'2026-07-29','2026-07-29 06:19:44',NULL,'active','2026-07-29 06:19:44','2026-07-29 06:19:44'),
+(73,26,29,NULL,'2026-08-05','2026-08-05 07:24:22','2026-08-05 08:09:44','completed','2026-08-05 07:24:22','2026-08-05 08:09:44'),
+(74,26,29,NULL,'2026-08-05','2026-08-05 08:09:52',NULL,'active','2026-08-05 08:09:52','2026-08-05 08:09:52'),
+(76,27,39,NULL,'2026-08-06','2026-08-06 08:01:58','2026-08-06 08:24:05','completed','2026-08-06 08:01:58','2026-08-06 08:24:05'),
+(77,27,39,NULL,'2026-08-06','2026-08-06 08:24:12','2026-08-06 09:06:20','completed','2026-08-06 08:24:12','2026-08-06 09:06:20'),
+(78,27,39,NULL,'2026-08-06','2026-08-06 09:06:27',NULL,'active','2026-08-06 09:06:27','2026-08-06 09:06:27'),
+(83,29,29,NULL,'2026-08-10','2026-08-10 04:42:09','2026-08-10 04:42:46','completed','2026-08-10 04:42:09','2026-08-10 04:42:46'),
+(84,29,29,NULL,'2026-08-10','2026-08-10 05:55:48','2026-08-10 06:00:24','completed','2026-08-10 05:55:48','2026-08-10 06:00:24'),
+(85,29,29,NULL,'2026-08-10','2026-08-10 06:00:31',NULL,'active','2026-08-10 06:00:31','2026-08-10 06:00:31'),
+(93,32,39,NULL,'2026-08-13','2026-08-13 12:31:20',NULL,'active','2026-08-13 12:31:20','2026-08-13 12:31:20'),
+(121,42,39,NULL,'2026-08-31','2026-08-31 07:23:45','2026-08-31 13:54:01','completed','2026-08-31 07:23:45','2026-08-31 13:54:01'),
+(122,42,39,NULL,'2026-08-31','2026-08-31 13:54:10',NULL,'active','2026-08-31 13:54:10','2026-08-31 13:54:10'),
+(126,49,39,NULL,'2026-09-02','2026-09-02 05:00:21','2026-09-02 05:25:05','completed','2026-09-02 05:00:21','2026-09-02 05:25:05'),
+(127,49,39,NULL,'2026-09-02','2026-09-02 05:25:11',NULL,'active','2026-09-02 05:25:11','2026-09-02 05:25:11'),
+(128,50,39,NULL,'2026-09-03','2026-09-03 05:22:13','2026-09-03 06:18:58','completed','2026-09-03 05:22:13','2026-09-03 06:18:58'),
+(129,50,39,NULL,'2026-09-03','2026-09-03 06:19:03','2026-09-03 06:56:13','completed','2026-09-03 06:19:03','2026-09-03 06:56:13'),
+(130,50,39,NULL,'2026-09-03','2026-09-03 06:56:19','2026-09-03 07:34:02','completed','2026-09-03 06:56:19','2026-09-03 07:34:02'),
+(131,50,39,NULL,'2026-09-03','2026-09-03 07:34:08','2026-09-03 07:45:39','completed','2026-09-03 07:34:08','2026-09-03 07:45:39'),
+(132,50,39,NULL,'2026-09-03','2026-09-03 07:54:27',NULL,'active','2026-09-03 07:54:27','2026-09-03 07:54:27'),
+(133,51,39,NULL,'2026-09-05','2026-09-05 06:11:48','2026-09-05 06:26:47','completed','2026-09-05 06:11:48','2026-09-05 06:26:47'),
+(134,51,39,NULL,'2026-09-05','2026-09-05 06:26:52','2026-09-05 06:40:06','completed','2026-09-05 06:26:52','2026-09-05 06:40:06'),
+(135,51,39,NULL,'2026-09-05','2026-09-05 06:40:12','2026-09-05 07:25:12','completed','2026-09-05 06:40:12','2026-09-05 07:25:12'),
+(136,51,39,NULL,'2026-09-05','2026-09-05 07:25:18','2026-09-05 08:15:43','completed','2026-09-05 07:25:18','2026-09-05 08:15:43'),
+(137,51,39,NULL,'2026-09-05','2026-09-05 08:15:49',NULL,'active','2026-09-05 08:15:49','2026-09-05 08:15:49'),
+(138,52,39,NULL,'2026-09-08','2026-09-08 04:30:44','2026-09-08 05:18:17','completed','2026-09-08 04:30:44','2026-09-08 05:18:17'),
+(139,52,39,NULL,'2026-09-08','2026-09-08 05:18:38','2026-09-08 07:16:44','completed','2026-09-08 05:18:38','2026-09-08 07:16:44'),
+(140,52,39,NULL,'2026-09-08','2026-09-08 07:16:54','2026-09-08 08:13:53','completed','2026-09-08 07:16:54','2026-09-08 08:13:53'),
+(141,52,39,NULL,'2026-09-08','2026-09-08 08:14:01','2026-09-08 08:43:53','completed','2026-09-08 08:14:01','2026-09-08 08:43:53'),
+(142,52,39,NULL,'2026-09-08','2026-09-08 08:43:58',NULL,'active','2026-09-08 08:43:58','2026-09-08 08:43:58'),
+(143,53,39,NULL,'2026-09-09','2026-09-09 06:28:59','2026-09-09 07:20:54','completed','2026-09-09 06:28:59','2026-09-09 07:20:54'),
+(144,53,39,NULL,'2026-09-09','2026-09-09 07:21:02','2026-09-09 08:01:15','completed','2026-09-09 07:21:02','2026-09-09 08:01:15'),
+(145,53,39,NULL,'2026-09-09','2026-09-09 08:01:24','2026-09-09 08:34:48','completed','2026-09-09 08:01:24','2026-09-09 08:34:48'),
+(146,53,39,NULL,'2026-09-09','2026-09-09 08:34:57',NULL,'active','2026-09-09 08:34:57','2026-09-09 08:34:57'),
+(147,54,39,NULL,'2026-09-10','2026-09-10 05:51:02','2026-09-10 07:04:45','completed','2026-09-10 05:51:02','2026-09-10 07:04:45'),
+(148,54,39,NULL,'2026-09-10','2026-09-10 07:05:02',NULL,'active','2026-09-10 07:05:02','2026-09-10 07:05:02'),
+(149,55,17,NULL,'2026-09-11','2026-09-11 07:40:52',NULL,'active','2026-09-11 07:40:52','2026-09-11 07:40:52'),
+(150,56,17,NULL,'2026-09-15','2026-09-15 05:48:51','2026-09-15 07:33:32','completed','2026-09-15 05:48:51','2026-09-15 07:33:32'),
+(151,56,17,NULL,'2026-09-15','2026-09-15 07:33:39',NULL,'active','2026-09-15 07:33:39','2026-09-15 07:33:39'),
+(152,57,39,NULL,'2026-09-16','2026-09-16 05:09:38','2026-09-16 08:04:56','completed','2026-09-16 05:09:38','2026-09-16 08:04:56'),
+(153,57,39,NULL,'2026-09-16','2026-09-16 08:05:03',NULL,'active','2026-09-16 08:05:03','2026-09-16 08:05:03'),
+(154,58,39,NULL,'2026-09-17','2026-09-17 06:19:03','2026-09-17 07:35:58','completed','2026-09-17 06:19:03','2026-09-17 07:35:58'),
+(155,58,39,NULL,'2026-09-17','2026-09-17 07:36:03',NULL,'active','2026-09-17 07:36:03','2026-09-17 07:36:03'),
+(156,59,71,NULL,'2026-09-18','2026-09-18 05:52:56','2026-09-18 07:35:10','completed','2026-09-18 05:52:56','2026-09-18 07:35:10'),
+(157,59,71,NULL,'2026-09-18','2026-09-18 07:35:20','2026-09-18 09:38:02','completed','2026-09-18 07:35:20','2026-09-18 09:38:02'),
+(158,59,71,NULL,'2026-09-18','2026-09-18 09:38:08','2026-09-18 09:44:55','completed','2026-09-18 09:38:08','2026-09-18 09:44:55'),
+(159,59,71,NULL,'2026-09-18','2026-09-18 09:45:21',NULL,'active','2026-09-18 09:45:21','2026-09-18 09:45:21'),
+(160,60,17,NULL,'2026-09-19','2026-09-19 05:55:13',NULL,'active','2026-09-19 05:55:13','2026-09-19 05:55:13'),
+(161,61,17,NULL,'2026-09-21','2026-09-21 05:05:32','2026-09-21 05:38:09','completed','2026-09-21 05:05:32','2026-09-21 05:38:09'),
+(162,61,17,NULL,'2026-09-21','2026-09-21 05:38:16','2026-09-21 06:04:08','completed','2026-09-21 05:38:16','2026-09-21 06:04:08'),
+(163,61,17,NULL,'2026-09-21','2026-09-21 06:41:53','2026-09-21 07:03:23','completed','2026-09-21 06:41:53','2026-09-21 07:03:23'),
+(164,61,17,NULL,'2026-09-21','2026-09-21 07:03:36',NULL,'active','2026-09-21 07:03:36','2026-09-21 07:03:36'),
+(165,62,39,NULL,'2026-09-22','2026-09-22 05:11:27','2026-09-22 05:55:54','completed','2026-09-22 05:11:27','2026-09-22 05:55:54'),
+(166,62,39,NULL,'2026-09-22','2026-09-22 05:56:01','2026-09-22 06:31:35','completed','2026-09-22 05:56:01','2026-09-22 06:31:35'),
+(167,62,39,NULL,'2026-09-22','2026-09-22 06:31:41','2026-09-22 07:22:11','completed','2026-09-22 06:31:41','2026-09-22 07:22:11'),
+(168,62,39,NULL,'2026-09-22','2026-09-22 07:22:16','2026-09-22 08:48:27','completed','2026-09-22 07:22:16','2026-09-22 08:48:27'),
+(169,62,39,NULL,'2026-09-22','2026-09-22 08:48:34',NULL,'active','2026-09-22 08:48:34','2026-09-22 08:48:34'),
+(170,64,39,NULL,'2026-09-24','2026-09-24 06:46:37',NULL,'active','2026-09-24 06:46:37','2026-09-24 06:46:37'),
+(171,65,29,NULL,'2026-09-26','2026-09-26 05:58:42','2026-09-26 07:07:44','completed','2026-09-26 05:58:42','2026-09-26 07:07:44'),
+(172,65,29,NULL,'2026-09-26','2026-09-26 07:07:49',NULL,'active','2026-09-26 07:07:49','2026-09-26 07:07:49'),
+(173,66,39,NULL,'2026-09-28','2026-09-28 14:02:39',NULL,'active','2026-09-28 14:02:39','2026-09-28 14:02:39'),
+(174,67,26,NULL,'2026-09-29','2026-09-29 05:06:29','2026-09-29 05:31:35','completed','2026-09-29 05:06:29','2026-09-29 05:31:35'),
+(175,67,26,NULL,'2026-09-29','2026-09-29 05:31:42','2026-09-29 06:00:19','completed','2026-09-29 05:31:42','2026-09-29 06:00:19'),
+(176,67,26,NULL,'2026-09-29','2026-09-29 06:00:26','2026-09-29 06:42:50','completed','2026-09-29 06:00:26','2026-09-29 06:42:50'),
+(177,67,26,NULL,'2026-09-29','2026-09-29 06:42:56','2026-09-29 07:30:32','completed','2026-09-29 06:42:56','2026-09-29 07:30:32'),
+(178,67,26,NULL,'2026-09-29','2026-09-29 07:30:38',NULL,'active','2026-09-29 07:30:38','2026-09-29 07:30:38'),
+(179,68,17,NULL,'2026-09-30','2026-09-30 08:56:38','2026-09-30 15:03:59','completed','2026-09-30 08:56:38','2026-09-30 15:03:59'),
+(180,68,17,NULL,'2026-09-30','2026-09-30 15:04:05',NULL,'active','2026-09-30 15:04:05','2026-09-30 15:04:05'),
+(181,69,39,496,'2026-10-01','2026-10-01 04:59:43','2026-10-01 06:01:57','completed','2026-10-01 04:59:43','2026-10-01 06:01:57'),
+(182,69,39,496,'2026-10-01','2026-10-01 06:02:02','2026-10-01 06:55:37','completed','2026-10-01 06:02:02','2026-10-01 06:55:37'),
+(183,69,39,496,'2026-10-01','2026-10-01 06:55:43','2026-10-01 07:23:02','completed','2026-10-01 06:55:43','2026-10-01 07:23:02'),
+(184,69,39,496,'2026-10-01','2026-10-01 07:23:10','2026-10-01 08:04:26','completed','2026-10-01 07:23:10','2026-10-01 08:04:26'),
+(185,69,39,496,'2026-10-01','2026-10-01 08:04:37','2026-10-01 08:17:00','completed','2026-10-01 08:04:37','2026-10-01 08:17:00'),
+(186,69,39,496,'2026-10-01','2026-10-01 08:17:05',NULL,'active','2026-10-01 08:17:05','2026-10-01 08:17:05');
+/*!40000 ALTER TABLE `e_detailing_sessions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `expenses`
+--
+
+DROP TABLE IF EXISTS `expenses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `expenses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `submitted_by_user_id` int(11) NOT NULL,
+  `title` varchar(180) NOT NULL,
+  `category` varchar(100) DEFAULT NULL,
+  `expense_month` varchar(7) DEFAULT NULL,
+  `amount` double NOT NULL DEFAULT 0,
+  `bill_image_path` varchar(255) DEFAULT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'submitted',
+  `approved_by_user_id` int(11) DEFAULT NULL,
+  `approval_note` text DEFAULT NULL,
+  `details_json` text DEFAULT NULL,
+  `rejection_reason` text DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `expenses_submitted_by_user_id_foreign` (`submitted_by_user_id`),
+  KEY `expenses_approved_by_user_id_foreign` (`approved_by_user_id`),
+  CONSTRAINT `expenses_approved_by_user_id_foreign` FOREIGN KEY (`approved_by_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE SET NULL,
+  CONSTRAINT `expenses_submitted_by_user_id_foreign` FOREIGN KEY (`submitted_by_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `expenses`
+--
+
+LOCK TABLES `expenses` WRITE;
+/*!40000 ALTER TABLE `expenses` DISABLE KEYS */;
+INSERT INTO `expenses` VALUES
+(1,2,'Monthly Expense Sheet','Monthly Grid','2026-07',7150,'','draft',NULL,'','[{\"day\":1,\"date_label\":\"01-Jul\",\"day_name\":\"Wed\",\"area_name\":\"\",\"work_type\":\"EX-HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"EX-HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":450,\"misc_amount\":0,\"total_amount\":450,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":2,\"date_label\":\"02-Jul\",\"day_name\":\"Thu\",\"area_name\":\"\",\"work_type\":\"EX-HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"EX-HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":450,\"misc_amount\":0,\"total_amount\":450,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":3,\"date_label\":\"03-Jul\",\"day_name\":\"Fri\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":4,\"date_label\":\"04-Jul\",\"day_name\":\"Sat\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":5,\"date_label\":\"05-Jul\",\"day_name\":\"Sun\",\"area_name\":\"\",\"work_type\":\"HOLIDAY\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HOLIDAY\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":0,\"misc_amount\":0,\"total_amount\":0,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":6,\"date_label\":\"06-Jul\",\"day_name\":\"Mon\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":7,\"date_label\":\"07-Jul\",\"day_name\":\"Tue\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":8,\"date_label\":\"08-Jul\",\"day_name\":\"Wed\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":9,\"date_label\":\"09-Jul\",\"day_name\":\"Thu\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":10,\"date_label\":\"10-Jul\",\"day_name\":\"Fri\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":11,\"date_label\":\"11-Jul\",\"day_name\":\"Sat\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":12,\"date_label\":\"12-Jul\",\"day_name\":\"Sun\",\"area_name\":\"\",\"work_type\":\"HOLIDAY\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HOLIDAY\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":0,\"misc_amount\":0,\"total_amount\":0,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":13,\"date_label\":\"13-Jul\",\"day_name\":\"Mon\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":14,\"date_label\":\"14-Jul\",\"day_name\":\"Tue\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":15,\"date_label\":\"15-Jul\",\"day_name\":\"Wed\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":16,\"date_label\":\"16-Jul\",\"day_name\":\"Thu\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":17,\"date_label\":\"17-Jul\",\"day_name\":\"Fri\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":18,\"date_label\":\"18-Jul\",\"day_name\":\"Sat\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":19,\"date_label\":\"19-Jul\",\"day_name\":\"Sun\",\"area_name\":\"\",\"work_type\":\"HOLIDAY\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HOLIDAY\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":0,\"misc_amount\":0,\"total_amount\":0,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":20,\"date_label\":\"20-Jul\",\"day_name\":\"Mon\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":21,\"date_label\":\"21-Jul\",\"day_name\":\"Tue\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":22,\"date_label\":\"22-Jul\",\"day_name\":\"Wed\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":23,\"date_label\":\"23-Jul\",\"day_name\":\"Thu\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":24,\"date_label\":\"24-Jul\",\"day_name\":\"Fri\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":25,\"date_label\":\"25-Jul\",\"day_name\":\"Sat\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":26,\"date_label\":\"26-Jul\",\"day_name\":\"Sun\",\"area_name\":\"\",\"work_type\":\"HOLIDAY\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HOLIDAY\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":0,\"misc_amount\":0,\"total_amount\":0,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":27,\"date_label\":\"27-Jul\",\"day_name\":\"Mon\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":28,\"date_label\":\"28-Jul\",\"day_name\":\"Tue\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":29,\"date_label\":\"29-Jul\",\"day_name\":\"Wed\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":30,\"date_label\":\"30-Jul\",\"day_name\":\"Thu\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"},{\"day\":31,\"date_label\":\"31-Jul\",\"day_name\":\"Fri\",\"area_name\":\"\",\"work_type\":\"HQ\",\"work_with\":\"Self\\/Alone\",\"allowance_type\":\"HQ\",\"distance_km\":0,\"fare_amount\":0,\"daily_allowance\":250,\"misc_amount\":0,\"total_amount\":250,\"remarks\":\"\",\"bill_path\":\"\",\"status\":\"Draft\"}]',NULL,'2026-07-04 08:14:15','2026-07-09 08:08:58');
+/*!40000 ALTER TABLE `expenses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `field_plans`
+--
+
+DROP TABLE IF EXISTS `field_plans`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `field_plans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `plan_date` date NOT NULL,
+  `plan_month` varchar(7) DEFAULT NULL,
+  `day_of_month` int(11) DEFAULT NULL,
+  `activity_type` varchar(30) NOT NULL DEFAULT 'tp',
+  `doctor_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `chemist_id` int(11) DEFAULT NULL,
+  `objective` text DEFAULT NULL,
+  `pob_amount` double DEFAULT NULL,
+  `joint_call_with` varchar(150) DEFAULT NULL,
+  `route_name` varchar(180) DEFAULT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'planned',
+  `created_by_user_id` int(11) DEFAULT NULL,
+  `assigned_user_id` int(11) DEFAULT NULL,
+  `approval_note` text DEFAULT NULL,
+  `is_locked` int(11) DEFAULT 0,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `territory_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `field_plans_doctor_id_foreign` (`doctor_id`),
+  KEY `field_plans_product_id_foreign` (`product_id`),
+  KEY `field_plans_chemist_id_foreign` (`chemist_id`),
+  KEY `fk_field_plans_territory` (`territory_id`),
+  CONSTRAINT `field_plans_chemist_id_foreign` FOREIGN KEY (`chemist_id`) REFERENCES `chemists` (`id`) ON DELETE CASCADE ON UPDATE SET NULL,
+  CONSTRAINT `field_plans_doctor_id_foreign` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`) ON DELETE CASCADE ON UPDATE SET NULL,
+  CONSTRAINT `field_plans_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE SET NULL,
+  CONSTRAINT `fk_field_plans_territory` FOREIGN KEY (`territory_id`) REFERENCES `territories` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=1348 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `field_plans`
+--
+
+LOCK TABLES `field_plans` WRITE;
+/*!40000 ALTER TABLE `field_plans` DISABLE KEYS */;
+INSERT INTO `field_plans` VALUES
+(55,'2026-07-01','2026-07',1,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(56,'2026-07-02','2026-07',2,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(57,'2026-07-03','2026-07',3,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(58,'2026-07-04','2026-07',4,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(59,'2026-07-06','2026-07',6,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(60,'2026-07-07','2026-07',7,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(61,'2026-07-08','2026-07',8,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(62,'2026-07-09','2026-07',9,'hq',NULL,NULL,NULL,NULL,NULL,'None','Jabalpur','planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',3),
+(64,'2026-07-10','2026-07',10,'hq',17,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(65,'2026-07-10','2026-07',10,'hq',11,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(66,'2026-07-11','2026-07',11,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(67,'2026-07-13','2026-07',13,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(68,'2026-07-14','2026-07',14,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(69,'2026-07-15','2026-07',15,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(70,'2026-07-16','2026-07',16,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(71,'2026-07-17','2026-07',17,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(72,'2026-07-18','2026-07',18,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(73,'2026-07-20','2026-07',20,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(74,'2026-07-21','2026-07',21,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(75,'2026-07-22','2026-07',22,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(76,'2026-07-23','2026-07',23,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(77,'2026-07-24','2026-07',24,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(78,'2026-07-25','2026-07',25,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(79,'2026-07-27','2026-07',27,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(80,'2026-07-28','2026-07',28,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(81,'2026-07-29','2026-07',29,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(82,'2026-07-30','2026-07',30,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(83,'2026-07-31','2026-07',31,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',2,2,NULL,0,'2026-07-09 08:14:30','2026-07-09 08:14:30',NULL),
+(416,'2026-09-01','2026-09',1,'ex-hq',NULL,NULL,NULL,NULL,NULL,'None','Gadarwara','planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',6),
+(417,'2026-09-02','2026-09',2,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(418,'2026-09-03','2026-09',3,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(419,'2026-09-04','2026-09',4,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(420,'2026-09-05','2026-09',5,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(421,'2026-09-07','2026-09',7,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(422,'2026-09-08','2026-09',8,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(423,'2026-09-09','2026-09',9,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(424,'2026-09-10','2026-09',10,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(425,'2026-09-11','2026-09',11,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(426,'2026-09-12','2026-09',12,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(427,'2026-09-14','2026-09',14,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(428,'2026-09-15','2026-09',15,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(429,'2026-09-16','2026-09',16,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(430,'2026-09-17','2026-09',17,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(431,'2026-09-18','2026-09',18,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(432,'2026-09-19','2026-09',19,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(433,'2026-09-21','2026-09',21,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(434,'2026-09-22','2026-09',22,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(435,'2026-09-23','2026-09',23,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(436,'2026-09-24','2026-09',24,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(437,'2026-09-25','2026-09',25,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(438,'2026-09-26','2026-09',26,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(439,'2026-09-28','2026-09',28,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(440,'2026-09-29','2026-09',29,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(441,'2026-09-30','2026-09',30,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',2,2,NULL,0,'2026-09-26 12:13:39','2026-09-26 12:13:39',NULL),
+(496,'2026-10-01','2026-10',1,'hq',39,NULL,NULL,NULL,NULL,'None','Jabalpur','planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',3),
+(497,'2026-10-01','2026-10',1,'hq',29,NULL,NULL,NULL,NULL,'None','Jabalpur','planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',3),
+(498,'2026-10-01','2026-10',1,'hq',27,NULL,NULL,NULL,NULL,'None','Jabalpur','planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',3),
+(499,'2026-10-02','2026-10',2,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(500,'2026-10-03','2026-10',3,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(501,'2026-10-05','2026-10',5,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(502,'2026-10-06','2026-10',6,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(503,'2026-10-07','2026-10',7,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(504,'2026-10-08','2026-10',8,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(505,'2026-10-09','2026-10',9,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(506,'2026-10-10','2026-10',10,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(507,'2026-10-12','2026-10',12,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(508,'2026-10-13','2026-10',13,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(509,'2026-10-14','2026-10',14,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(510,'2026-10-15','2026-10',15,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(511,'2026-10-16','2026-10',16,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(512,'2026-10-17','2026-10',17,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(513,'2026-10-19','2026-10',19,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(514,'2026-10-20','2026-10',20,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(515,'2026-10-21','2026-10',21,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(516,'2026-10-22','2026-10',22,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(517,'2026-10-23','2026-10',23,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(518,'2026-10-24','2026-10',24,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(519,'2026-10-26','2026-10',26,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(520,'2026-10-27','2026-10',27,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(521,'2026-10-28','2026-10',28,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(522,'2026-10-29','2026-10',29,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(523,'2026-10-30','2026-10',30,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(524,'2026-10-31','2026-10',31,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',22,22,NULL,0,'2026-09-27 05:03:54','2026-09-27 05:03:54',NULL),
+(1303,'2026-09-01','2026-09',1,'ex-hq',60,NULL,NULL,NULL,NULL,'None','Katni','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',5),
+(1304,'2026-09-01','2026-09',1,'ex-hq',53,NULL,NULL,NULL,NULL,'None','Katni','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',5),
+(1305,'2026-09-01','2026-09',1,'ex-hq',49,NULL,NULL,NULL,NULL,'None','Katni','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',5),
+(1306,'2026-09-01','2026-09',1,'ex-hq',52,NULL,NULL,NULL,NULL,'None','Katni','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',5),
+(1307,'2026-09-01','2026-09',1,'ex-hq',51,NULL,NULL,NULL,NULL,'None','Katni','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',5),
+(1308,'2026-09-01','2026-09',1,'ex-hq',50,NULL,NULL,NULL,NULL,'None','Katni','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',5),
+(1309,'2026-09-01','2026-09',1,'ex-hq',55,NULL,NULL,NULL,NULL,'None','Katni','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',5),
+(1310,'2026-09-01','2026-09',1,'ex-hq',59,NULL,NULL,NULL,NULL,'None','Katni','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',5),
+(1311,'2026-09-01','2026-09',1,'ex-hq',57,NULL,NULL,NULL,NULL,'None','Katni','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',5),
+(1312,'2026-09-01','2026-09',1,'ex-hq',56,NULL,NULL,NULL,NULL,'None','Katni','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',5),
+(1313,'2026-09-01','2026-09',1,'ex-hq',58,NULL,NULL,NULL,NULL,'None','Katni','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',5),
+(1314,'2026-09-01','2026-09',1,'ex-hq',54,NULL,NULL,NULL,NULL,'None','Katni','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',5),
+(1315,'2026-09-02','2026-09',2,'hq',76,NULL,NULL,NULL,NULL,'None','Jabalpur, KARKBEL','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1316,'2026-09-02','2026-09',2,'hq',75,NULL,NULL,NULL,NULL,'None','Jabalpur, KARKBEL','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1317,'2026-09-02','2026-09',2,'hq',43,NULL,NULL,NULL,NULL,'None','Jabalpur, KARKBEL','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1318,'2026-09-02','2026-09',2,'hq',41,NULL,NULL,NULL,NULL,'None','Jabalpur, KARKBEL','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1319,'2026-09-02','2026-09',2,'hq',4,NULL,NULL,NULL,NULL,'None','Jabalpur, KARKBEL','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1320,'2026-09-03','2026-09',3,'hq',82,NULL,NULL,NULL,NULL,'None','Jabalpur','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',3),
+(1321,'2026-09-03','2026-09',3,'hq',74,NULL,NULL,NULL,NULL,'None','Jabalpur','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',3),
+(1322,'2026-09-03','2026-09',3,'hq',6,NULL,NULL,NULL,NULL,'None','Jabalpur','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',3),
+(1323,'2026-09-03','2026-09',3,'hq',13,NULL,NULL,NULL,NULL,'None','Jabalpur','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',3),
+(1324,'2026-09-03','2026-09',3,'hq',35,NULL,NULL,NULL,NULL,'None','Jabalpur','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',3),
+(1325,'2026-09-04','2026-09',4,'ex-hq',NULL,NULL,NULL,NULL,NULL,'None','Gadarwara','planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',6),
+(1326,'2026-09-05','2026-09',5,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1327,'2026-09-07','2026-09',7,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1328,'2026-09-08','2026-09',8,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1329,'2026-09-09','2026-09',9,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1330,'2026-09-10','2026-09',10,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1331,'2026-09-11','2026-09',11,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1332,'2026-09-12','2026-09',12,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1333,'2026-09-14','2026-09',14,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1334,'2026-09-15','2026-09',15,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1335,'2026-09-16','2026-09',16,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1336,'2026-09-17','2026-09',17,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1337,'2026-09-18','2026-09',18,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1338,'2026-09-19','2026-09',19,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1339,'2026-09-21','2026-09',21,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1340,'2026-09-22','2026-09',22,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1341,'2026-09-23','2026-09',23,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1342,'2026-09-24','2026-09',24,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1343,'2026-09-25','2026-09',25,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1344,'2026-09-26','2026-09',26,'hq',NULL,NULL,NULL,NULL,NULL,'None',NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1345,'2026-09-28','2026-09',28,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1346,'2026-09-29','2026-09',29,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL),
+(1347,'2026-09-30','2026-09',30,'hq',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'planned',22,22,NULL,0,'2026-09-29 12:46:02','2026-09-29 12:46:02',NULL);
+/*!40000 ALTER TABLE `field_plans` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `migrations`
+--
+
+DROP TABLE IF EXISTS `migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `migrations` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `version` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `group` varchar(255) NOT NULL,
+  `namespace` varchar(255) NOT NULL,
+  `time` int(11) NOT NULL,
+  `batch` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `migrations`
+--
+
+LOCK TABLES `migrations` WRITE;
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+INSERT INTO `migrations` VALUES
+(1,'2026-04-16-000001','App\\Database\\Migrations\\CreatePharmaTables','default','App',1776691173,1),
+(2,'2026-04-16-000002','App\\Database\\Migrations\\CreateAuthAndSettingsTables','default','App',1776691173,1),
+(3,'2026-04-16-000003','App\\Database\\Migrations\\CreateFieldWorkflowTables','default','App',1776691173,1),
+(4,'2026-04-16-000004','App\\Database\\Migrations\\AddChemistToVisits','default','App',1776691173,1),
+(5,'2026-05-19-000005','App\\Database\\Migrations\\CreateEDetailingTables','default','App',1780757986,2),
+(6,'2026-05-21-000006','App\\Database\\Migrations\\AddRoleWorkflowAndExpenses','default','App',1780757986,2),
+(7,'2026-05-22-000007','App\\Database\\Migrations\\AddOperationsModules','default','App',1780757986,2),
+(8,'2026-05-25-000008','App\\Database\\Migrations\\AddFounderMrEnhancements','default','App',1780757986,2),
+(9,'2026-05-25-000009','App\\Database\\Migrations\\AddMonthlyWorkflowParityFields','default','App',1780757986,2),
+(10,'2026-05-25-000010','App\\Database\\Migrations\\AddEDetailingSessionLinkToVisits','default','App',1780757986,2),
+(11,'2026-06-01-000011','App\\Database\\Migrations\\AddCfaStockistFields','default','App',1780757986,2),
+(12,'2026-06-01-000012','App\\Database\\Migrations\\AddSalesEntryUFields','default','App',1780757986,2),
+(13,'2026-06-02-000013','App\\Database\\Migrations\\AddCrmActivityFields','default','App',1780757986,2),
+(14,'2026-06-07-000014','App\\Database\\Migrations\\AddImageToProducts','default','App',1780842536,3),
+(15,'2026-06-18-124000','App\\Database\\Migrations\\ModifyProductImagePathToText','default','App',1781868949,4),
+(16,'2026-06-22-111730','App\\Database\\Migrations\\AddTerritoryManagement','default','App',1782994023,5),
+(17,'2026-06-22-121500','App\\Database\\Migrations\\AddOrderingToProductsAndSlides','default','App',1782994023,5),
+(18,'2026-07-02-121835','App\\Database\\Migrations\\CreateSettingsTable','default','App',1782995652,6),
+(19,'2026-07-03-063000','App\\Database\\Migrations\\AddDaFieldsToUsers','default','App',1783087677,7),
+(20,'2026-07-03-120000','App\\Database\\Migrations\\UpdateTerritoryHierarchy','default','App',1783087677,7),
+(21,'2026-07-03-140000','App\\Database\\Migrations\\FixDatabaseState','default','App',1783087682,8),
+(22,'2026-09-27-053248','App\\Database\\Migrations\\CreateRemindersTable','default','App',1790489422,9);
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(180) NOT NULL,
+  `pts_price` double DEFAULT 0,
+  `description` text DEFAULT NULL,
+  `image_path` text DEFAULT NULL,
+  `detail_pdf` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `packing` varchar(80) DEFAULT NULL,
+  `display_order` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products`
+--
+
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES
+(6,'Ravion pharma',0,'','[\"uploads\\/products\\/images\\/1783397630_5de78c5fdec3a6387c2a.png\"]','','2026-07-07 04:13:50','2026-07-07 04:13:50','00',1),
+(7,'PRIME DHA KIDS DROP',293,'','[\"uploads\\/products\\/images\\/1783397823_162a2917d35d27b8cd16.png\",\"uploads\\/products\\/images\\/1783397823_726d8572af782db1b962.png\",\"uploads\\/products\\/images\\/1783397823_9a6d3fcd4dff9bf1f56f.png\",\"uploads\\/products\\/images\\/1783397823_f5d408cfc91cde47e455.png\"]','','2026-07-07 04:17:03','2026-07-07 04:17:03','15 ML',2),
+(8,'IROVION SPRINKLE',379,'','[\"uploads\\/products\\/images\\/1783398057_9ac77e662823b1f9b505.png\",\"uploads\\/products\\/images\\/1783398057_8598e2cdf9a9a126fd58.png\",\"uploads\\/products\\/images\\/1783398057_1695b16adbf9fe3659c6.png\"]','','2026-07-07 04:20:57','2026-07-07 04:20:57','30 GM',3),
+(9,'PEDIVION DROP',78,'','[\"uploads\\/products\\/images\\/1783398111_d00638237551bad1e230.png\",\"uploads\\/products\\/images\\/1783398111_db68b05153a112102cae.png\"]','','2026-07-07 04:21:51','2026-07-07 04:21:51','15 ML',4),
+(10,'GrowvionDHA',549,'','[\"uploads\\/products\\/images\\/1785155627_0abf5490545d6260add1.png\",\"uploads\\/products\\/images\\/1785155627_35f1ea380e988db207e0.png\"]','','2026-07-27 12:33:47','2026-07-27 12:33:47','300gm',5);
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reminders`
+--
+
+DROP TABLE IF EXISTS `reminders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reminders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `person_name` varchar(255) NOT NULL,
+  `event_type` varchar(50) NOT NULL DEFAULT 'birthday',
+  `event_date` date NOT NULL,
+  `notes` text DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `reminders_user_id_foreign` (`user_id`),
+  CONSTRAINT `reminders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reminders`
+--
+
+LOCK TABLES `reminders` WRITE;
+/*!40000 ALTER TABLE `reminders` DISABLE KEYS */;
+INSERT INTO `reminders` VALUES
+(1,22,'Dr ratnesh namdeo','birthday','2026-01-25','Drs bday','2026-09-29 12:51:16','2026-09-29 12:51:16'),
+(2,22,'Dr Ratnesh namdeo','anniversary','2026-02-19','dr anniversary','2026-09-29 12:52:07','2026-09-29 12:52:07'),
+(3,22,'dr ratnesh namdeo','other','2026-08-02','Dr ratnesh namdevo wife bday','2026-09-29 12:53:08','2026-09-29 12:53:08');
+/*!40000 ALTER TABLE `reminders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sales_entries`
+--
+
+DROP TABLE IF EXISTS `sales_entries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `sales_entries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `entry_date` date NOT NULL,
+  `sales_month` varchar(7) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `stockist_id` int(11) DEFAULT NULL,
+  `matrix_row_key` varchar(120) DEFAULT NULL,
+  `area` varchar(120) DEFAULT NULL,
+  `opening_value` double NOT NULL DEFAULT 0,
+  `primary_value` double NOT NULL DEFAULT 0,
+  `secondary_value` double NOT NULL DEFAULT 0,
+  `closing_value` double NOT NULL DEFAULT 0,
+  `status` varchar(20) NOT NULL DEFAULT 'submitted',
+  `created_by_user_id` int(11) NOT NULL,
+  `approved_by_user_id` int(11) DEFAULT NULL,
+  `approval_note` text DEFAULT NULL,
+  `matrix_json` text DEFAULT NULL,
+  `locked_by_manager` int(11) DEFAULT 0,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `aiocd_sales` double DEFAULT 0,
+  `mr_sales` double DEFAULT 0,
+  `late_sales` double DEFAULT 0,
+  `late_stock` double DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `sales_entries_product_id_foreign` (`product_id`),
+  KEY `sales_entries_stockist_id_foreign` (`stockist_id`),
+  KEY `sales_entries_created_by_user_id_foreign` (`created_by_user_id`),
+  KEY `sales_entries_approved_by_user_id_foreign` (`approved_by_user_id`),
+  CONSTRAINT `sales_entries_approved_by_user_id_foreign` FOREIGN KEY (`approved_by_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE SET NULL,
+  CONSTRAINT `sales_entries_created_by_user_id_foreign` FOREIGN KEY (`created_by_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `sales_entries_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE SET NULL,
+  CONSTRAINT `sales_entries_stockist_id_foreign` FOREIGN KEY (`stockist_id`) REFERENCES `stockists` (`id`) ON DELETE CASCADE ON UPDATE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sales_entries`
+--
+
+LOCK TABLES `sales_entries` WRITE;
+/*!40000 ALTER TABLE `sales_entries` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sales_entries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `settings`
+--
+
+DROP TABLE IF EXISTS `settings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `settings` (
+  `key_name` varchar(120) NOT NULL,
+  `value_text` text DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`key_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `settings`
+--
+
+LOCK TABLES `settings` WRITE;
+/*!40000 ALTER TABLE `settings` DISABLE KEYS */;
+INSERT INTO `settings` VALUES
+('company_logo','uploads/logo/1776738237_e2a24bf5e89be6766942.jpg',NULL,NULL),
+('da_manager_ex','450',NULL,NULL),
+('da_manager_hq','250',NULL,NULL),
+('da_manager_os','700',NULL,NULL),
+('da_mr_ex','450',NULL,NULL),
+('da_mr_hq','250',NULL,NULL),
+('da_mr_os','700',NULL,NULL),
+('monthly_secondary_target','1000000',NULL,NULL);
+/*!40000 ALTER TABLE `settings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `slides`
+--
+
+DROP TABLE IF EXISTS `slides`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `slides` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) DEFAULT NULL,
+  `title` varchar(180) NOT NULL,
+  `file_path` varchar(255) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'active',
+  `slide_order` int(11) DEFAULT 0,
+  `created_by_user_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `slides_product_id_foreign` (`product_id`),
+  KEY `slides_created_by_user_id_foreign` (`created_by_user_id`),
+  CONSTRAINT `slides_created_by_user_id_foreign` FOREIGN KEY (`created_by_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `slides_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `slides`
+--
+
+LOCK TABLES `slides` WRITE;
+/*!40000 ALTER TABLE `slides` DISABLE KEYS */;
+/*!40000 ALTER TABLE `slides` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sponsorships`
+--
+
+DROP TABLE IF EXISTS `sponsorships`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `sponsorships` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `doctor_id` int(11) NOT NULL,
+  `amount` double NOT NULL DEFAULT 0,
+  `purpose` varchar(255) DEFAULT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'submitted',
+  `created_by_user_id` int(11) NOT NULL,
+  `approved_by_user_id` int(11) DEFAULT NULL,
+  `approval_note` text DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `activity_type` varchar(50) DEFAULT 'Other',
+  `activity_date` date DEFAULT NULL,
+  `remarks` text DEFAULT NULL,
+  `current_roi` double DEFAULT 0,
+  `expected_roi` double DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `sponsorships_doctor_id_foreign` (`doctor_id`),
+  KEY `sponsorships_created_by_user_id_foreign` (`created_by_user_id`),
+  KEY `sponsorships_approved_by_user_id_foreign` (`approved_by_user_id`),
+  CONSTRAINT `sponsorships_approved_by_user_id_foreign` FOREIGN KEY (`approved_by_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE SET NULL,
+  CONSTRAINT `sponsorships_created_by_user_id_foreign` FOREIGN KEY (`created_by_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `sponsorships_doctor_id_foreign` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sponsorships`
+--
+
+LOCK TABLES `sponsorships` WRITE;
+/*!40000 ALTER TABLE `sponsorships` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sponsorships` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `stockists`
+--
+
+DROP TABLE IF EXISTS `stockists`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `stockists` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(180) NOT NULL,
+  `area` varchar(120) DEFAULT NULL,
+  `cfa_id` int(11) DEFAULT NULL,
+  `created_by_user_id` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `contact_person` varchar(180) DEFAULT NULL,
+  `mobile` varchar(50) DEFAULT NULL,
+  `email` varchar(180) DEFAULT NULL,
+  `gst` varchar(50) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `city` varchar(120) DEFAULT NULL,
+  `territory_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `stockists_cfa_id_foreign` (`cfa_id`),
+  KEY `stockists_created_by_user_id_foreign` (`created_by_user_id`),
+  KEY `fk_stockists_territory` (`territory_id`),
+  CONSTRAINT `fk_stockists_territory` FOREIGN KEY (`territory_id`) REFERENCES `territories` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `stockists_cfa_id_foreign` FOREIGN KEY (`cfa_id`) REFERENCES `cfas` (`id`) ON DELETE CASCADE ON UPDATE SET NULL,
+  CONSTRAINT `stockists_created_by_user_id_foreign` FOREIGN KEY (`created_by_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stockists`
+--
+
+LOCK TABLES `stockists` WRITE;
+/*!40000 ALTER TABLE `stockists` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stockists` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `territories`
+--
+
+DROP TABLE IF EXISTS `territories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `territories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_territories_parent` (`parent_id`),
+  CONSTRAINT `fk_territories_parent` FOREIGN KEY (`parent_id`) REFERENCES `territories` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `territories`
+--
+
+LOCK TABLES `territories` WRITE;
+/*!40000 ALTER TABLE `territories` DISABLE KEYS */;
+INSERT INTO `territories` VALUES
+(1,'Madhya Pradesh','state',NULL,'2026-07-03 14:09:49','2026-07-04 06:36:09'),
+(3,'Jabalpur','hq',1,'2026-07-04 06:36:24','2026-07-04 06:36:24'),
+(4,'Narsinghpur','ex-station',3,'2026-07-04 06:37:16','2026-07-04 06:37:16'),
+(5,'Katni','ex-station',3,'2026-07-04 06:37:28','2026-07-04 06:37:28'),
+(6,'Gadarwara','ex-station',3,'2026-08-08 07:39:13','2026-08-08 07:39:13'),
+(7,'KATANGI','ex-station',3,'2026-08-08 08:01:50','2026-08-08 08:01:50'),
+(9,'MAJHOLI','ex-station',3,'2026-08-08 08:02:08','2026-08-08 08:02:08'),
+(10,'PANAGAR','ex-station',3,'2026-08-08 08:02:27','2026-08-08 08:02:27'),
+(11,'KARKBEL','ex-station',3,'2026-08-08 08:02:42','2026-08-08 08:02:42');
+/*!40000 ALTER TABLE `territories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_territories`
+--
+
+DROP TABLE IF EXISTS `user_territories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_territories` (
+  `user_id` int(11) NOT NULL,
+  `territory_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`territory_id`),
+  KEY `user_territories_territory_id_foreign` (`territory_id`),
+  CONSTRAINT `user_territories_territory_id_foreign` FOREIGN KEY (`territory_id`) REFERENCES `territories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_territories_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_territories`
+--
+
+LOCK TABLES `user_territories` WRITE;
+/*!40000 ALTER TABLE `user_territories` DISABLE KEYS */;
+INSERT INTO `user_territories` VALUES
+(21,3),
+(22,3);
+/*!40000 ALTER TABLE `user_territories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(120) NOT NULL,
+  `username` varchar(80) DEFAULT NULL,
+  `email` varchar(160) NOT NULL,
+  `mobile` varchar(20) DEFAULT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `role` varchar(40) NOT NULL DEFAULT 'admin',
+  `area` varchar(120) DEFAULT NULL,
+  `manager_user_id` int(11) DEFAULT NULL,
+  `is_active` int(11) NOT NULL DEFAULT 1,
+  `da_hq` int(11) DEFAULT NULL,
+  `da_ex` int(11) DEFAULT NULL,
+  `da_os` int(11) DEFAULT NULL,
+  `monthly_target` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES
+(2,'Lakesh kumar soni','lakesh','ravionpharma@gmail.com','9424928056','$2y$10$o9sANCtfwhqwiajvT6MrCeLEfYATQAwpMT/igEQmvOE.R01OStc5S','owner','Global',NULL,1,NULL,NULL,NULL,NULL,'2026-06-06 14:59:46','2026-07-07 04:10:22'),
+(21,'rashmi bahekar','rashmi.b@nextbee.net','bahekar.rashmi@gmail.com','07999560788','$2y$10$lQZmQJ.BTs6wtI3gjHVXpe/JyFZN8XMe4qbJzb/rw/Zl/.COlFDQK','mr','hyd',NULL,1,NULL,NULL,NULL,NULL,'2026-07-03 14:10:18','2026-07-07 13:44:52'),
+(22,'Soni Lakesh Kumar','soni','lakesh@ravionpharma.in','9424928056','$2y$10$bcuAzjw7Kh71VCx37WoD8.HPOIGrNVUdzGn71s0iRKf80Mbs93IT.','manager','Jabalpur',NULL,1,NULL,NULL,NULL,NULL,'2026-07-07 04:11:49','2026-07-27 12:45:58');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `visits`
+--
+
+DROP TABLE IF EXISTS `visits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `visits` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `doctor_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `visit_date` datetime NOT NULL,
+  `dcr_date` date DEFAULT NULL,
+  `dcr_month` varchar(7) DEFAULT NULL,
+  `duration_minutes` int(11) DEFAULT 0,
+  `pob_value` double DEFAULT 0,
+  `sample_units` int(11) DEFAULT 0,
+  `action_type` varchar(20) NOT NULL DEFAULT 'detailing',
+  `is_deviation` int(11) DEFAULT 0,
+  `deviation_reason` text DEFAULT NULL,
+  `created_by_user_id` int(11) DEFAULT NULL,
+  `feedback` text DEFAULT NULL,
+  `next_objective` text DEFAULT NULL,
+  `joint_call_with` varchar(150) DEFAULT NULL,
+  `report_status` varchar(20) DEFAULT 'submitted',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `chemist_id` int(11) DEFAULT NULL,
+  `planned_plan_id` int(11) DEFAULT NULL,
+  `e_detailing_session_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `visits_doctor_id_foreign` (`doctor_id`),
+  KEY `visits_product_id_foreign` (`product_id`),
+  CONSTRAINT `visits_doctor_id_foreign` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `visits_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=631 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `visits`
+--
+
+LOCK TABLES `visits` WRITE;
+/*!40000 ALTER TABLE `visits` DISABLE KEYS */;
+INSERT INTO `visits` VALUES
+(53,13,6,'2026-07-17 05:43:57','2026-07-17','2026-07',0,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-17 05:43:57','2026-07-17 05:43:57',NULL,NULL,19),
+(54,13,7,'2026-07-17 05:43:57','2026-07-17','2026-07',0,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-17 05:43:57','2026-07-17 05:43:57',NULL,NULL,19),
+(55,13,8,'2026-07-17 05:43:57','2026-07-17','2026-07',0,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-17 05:43:57','2026-07-17 05:43:57',NULL,NULL,19),
+(56,13,9,'2026-07-17 05:43:57','2026-07-17','2026-07',0,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-17 05:43:57','2026-07-17 05:43:57',NULL,NULL,19),
+(57,13,6,'2026-07-17 14:50:36','2026-07-17','2026-07',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-17 14:50:36','2026-07-17 14:50:36',NULL,NULL,20),
+(58,13,7,'2026-07-17 14:50:36','2026-07-17','2026-07',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-17 14:50:36','2026-07-17 14:50:36',NULL,NULL,20),
+(59,13,8,'2026-07-17 14:50:36','2026-07-17','2026-07',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-17 14:50:36','2026-07-17 14:50:36',NULL,NULL,20),
+(60,13,9,'2026-07-17 14:50:36','2026-07-17','2026-07',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-17 14:50:36','2026-07-17 14:50:36',NULL,NULL,20),
+(69,17,6,'2026-07-20 08:31:11','2026-07-20','2026-07',3,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-20 08:31:11','2026-07-20 08:31:11',NULL,NULL,24),
+(70,17,7,'2026-07-20 08:31:11','2026-07-20','2026-07',3,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-20 08:31:11','2026-07-20 08:31:11',NULL,NULL,24),
+(71,17,8,'2026-07-20 08:31:11','2026-07-20','2026-07',3,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-20 08:31:11','2026-07-20 08:31:11',NULL,NULL,24),
+(72,17,9,'2026-07-20 08:31:11','2026-07-20','2026-07',3,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-20 08:31:11','2026-07-20 08:31:11',NULL,NULL,24),
+(81,16,6,'2026-07-21 15:00:00','2026-07-21','2026-07',15,0,0,'call',1,'Unplanned doctor visit.',22,'Ok','Jabalpur','Alone','submitted','2026-07-21 12:04:44','2026-07-21 12:04:44',NULL,NULL,NULL),
+(110,6,6,'2026-07-17 20:10:00','2026-07-17','2026-07',15,0,0,'call',1,'Unplanned doctor visit.',22,'ok','Jabalpur','Alone','submitted','2026-07-24 05:08:15','2026-07-24 05:08:15',NULL,NULL,NULL),
+(111,13,6,'2026-07-17 11:40:00','2026-07-17','2026-07',15,0,0,'call',1,'Unplanned doctor visit.',22,'ok','Jabalpur','Alone','submitted','2026-07-24 05:08:15','2026-07-24 05:08:15',NULL,NULL,NULL),
+(112,25,6,'2026-07-17 19:37:00','2026-07-17','2026-07',15,0,0,'call',1,'Unplanned doctor visit.',22,'','Jabalpur','Alone','submitted','2026-07-24 05:08:15','2026-07-24 05:08:15',1,NULL,NULL),
+(113,4,6,'2026-07-17 20:45:00','2026-07-17','2026-07',15,0,0,'call',1,'Unplanned doctor visit.',22,'ok','Jabalpur','Alone','submitted','2026-07-24 05:08:15','2026-07-24 05:08:15',NULL,NULL,NULL),
+(114,29,6,'2026-07-24 08:58:46','2026-07-24','2026-07',100,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 08:58:46','2026-07-24 08:58:46',NULL,NULL,36),
+(115,29,7,'2026-07-24 08:58:46','2026-07-24','2026-07',100,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 08:58:46','2026-07-24 08:58:46',NULL,NULL,36),
+(116,29,8,'2026-07-24 08:58:46','2026-07-24','2026-07',100,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 08:58:46','2026-07-24 08:58:46',NULL,NULL,36),
+(117,29,9,'2026-07-24 08:58:46','2026-07-24','2026-07',100,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 08:58:46','2026-07-24 08:58:46',NULL,NULL,36),
+(118,29,6,'2026-07-24 09:06:36','2026-07-24','2026-07',7,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 09:06:36','2026-07-24 09:06:36',NULL,NULL,37),
+(119,29,7,'2026-07-24 09:06:36','2026-07-24','2026-07',7,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 09:06:36','2026-07-24 09:06:36',NULL,NULL,37),
+(120,29,8,'2026-07-24 09:06:36','2026-07-24','2026-07',7,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 09:06:36','2026-07-24 09:06:36',NULL,NULL,37),
+(121,29,9,'2026-07-24 09:06:36','2026-07-24','2026-07',7,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 09:06:36','2026-07-24 09:06:36',NULL,NULL,37),
+(122,29,6,'2026-07-24 10:45:18','2026-07-24','2026-07',98,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 10:45:18','2026-07-24 10:45:18',NULL,NULL,38),
+(123,29,7,'2026-07-24 10:45:18','2026-07-24','2026-07',98,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 10:45:18','2026-07-24 10:45:18',NULL,NULL,38),
+(124,29,8,'2026-07-24 10:45:18','2026-07-24','2026-07',98,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 10:45:18','2026-07-24 10:45:18',NULL,NULL,38),
+(125,29,9,'2026-07-24 10:45:18','2026-07-24','2026-07',98,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 10:45:18','2026-07-24 10:45:18',NULL,NULL,38),
+(126,29,6,'2026-07-24 12:08:04','2026-07-24','2026-07',82,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 12:08:04','2026-07-24 12:08:04',NULL,NULL,39),
+(127,29,7,'2026-07-24 12:08:04','2026-07-24','2026-07',82,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 12:08:04','2026-07-24 12:08:04',NULL,NULL,39),
+(128,29,8,'2026-07-24 12:08:04','2026-07-24','2026-07',82,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 12:08:04','2026-07-24 12:08:04',NULL,NULL,39),
+(129,29,9,'2026-07-24 12:08:04','2026-07-24','2026-07',82,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 12:08:04','2026-07-24 12:08:04',NULL,NULL,39),
+(130,29,6,'2026-07-24 12:36:03','2026-07-24','2026-07',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 12:36:03','2026-07-24 12:36:03',NULL,NULL,40),
+(131,29,7,'2026-07-24 12:36:03','2026-07-24','2026-07',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 12:36:03','2026-07-24 12:36:03',NULL,NULL,40),
+(132,29,8,'2026-07-24 12:36:03','2026-07-24','2026-07',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 12:36:03','2026-07-24 12:36:03',NULL,NULL,40),
+(133,29,9,'2026-07-24 12:36:03','2026-07-24','2026-07',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-24 12:36:03','2026-07-24 12:36:03',NULL,NULL,40),
+(134,29,6,'2026-07-25 14:33:52','2026-07-25','2026-07',10,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-25 14:33:52','2026-07-25 14:33:52',NULL,NULL,42),
+(135,29,7,'2026-07-25 14:33:52','2026-07-25','2026-07',10,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-25 14:33:52','2026-07-25 14:33:52',NULL,NULL,42),
+(136,29,8,'2026-07-25 14:33:52','2026-07-25','2026-07',10,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-25 14:33:52','2026-07-25 14:33:52',NULL,NULL,42),
+(137,29,9,'2026-07-25 14:33:52','2026-07-25','2026-07',10,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-25 14:33:52','2026-07-25 14:33:52',NULL,NULL,42),
+(143,29,6,'2026-07-28 07:49:11','2026-07-28','2026-07',10,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-28 07:49:11','2026-07-28 07:49:11',NULL,NULL,45),
+(144,29,7,'2026-07-28 07:49:11','2026-07-28','2026-07',10,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-28 07:49:11','2026-07-28 07:49:11',NULL,NULL,45),
+(145,29,8,'2026-07-28 07:49:11','2026-07-28','2026-07',10,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-28 07:49:11','2026-07-28 07:49:11',NULL,NULL,45),
+(146,29,9,'2026-07-28 07:49:11','2026-07-28','2026-07',10,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-28 07:49:11','2026-07-28 07:49:11',NULL,NULL,45),
+(147,39,6,'2026-07-29 05:37:39','2026-07-29','2026-07',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 05:37:39','2026-07-29 05:37:39',NULL,NULL,47),
+(148,39,7,'2026-07-29 05:37:39','2026-07-29','2026-07',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 05:37:39','2026-07-29 05:37:39',NULL,NULL,47),
+(149,39,8,'2026-07-29 05:37:39','2026-07-29','2026-07',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 05:37:39','2026-07-29 05:37:39',NULL,NULL,47),
+(150,39,9,'2026-07-29 05:37:39','2026-07-29','2026-07',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 05:37:39','2026-07-29 05:37:39',NULL,NULL,47),
+(151,39,6,'2026-07-29 06:02:59','2026-07-29','2026-07',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 06:02:59','2026-07-29 06:02:59',NULL,NULL,48),
+(152,39,7,'2026-07-29 06:02:59','2026-07-29','2026-07',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 06:02:59','2026-07-29 06:02:59',NULL,NULL,48),
+(153,39,8,'2026-07-29 06:02:59','2026-07-29','2026-07',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 06:02:59','2026-07-29 06:02:59',NULL,NULL,48),
+(154,39,9,'2026-07-29 06:02:59','2026-07-29','2026-07',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 06:02:59','2026-07-29 06:02:59',NULL,NULL,48),
+(155,39,10,'2026-07-29 06:02:59','2026-07-29','2026-07',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 06:02:59','2026-07-29 06:02:59',NULL,NULL,48),
+(156,39,6,'2026-07-29 06:19:34','2026-07-29','2026-07',16,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 06:19:34','2026-07-29 06:19:34',NULL,NULL,49),
+(157,39,7,'2026-07-29 06:19:34','2026-07-29','2026-07',16,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 06:19:34','2026-07-29 06:19:34',NULL,NULL,49),
+(158,39,8,'2026-07-29 06:19:34','2026-07-29','2026-07',16,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 06:19:34','2026-07-29 06:19:34',NULL,NULL,49),
+(159,39,9,'2026-07-29 06:19:34','2026-07-29','2026-07',16,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 06:19:34','2026-07-29 06:19:34',NULL,NULL,49),
+(160,39,10,'2026-07-29 06:19:34','2026-07-29','2026-07',16,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-07-29 06:19:34','2026-07-29 06:19:34',NULL,NULL,49),
+(251,29,6,'2026-08-05 08:09:44','2026-08-05','2026-08',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-05 08:09:44','2026-08-05 08:09:44',NULL,NULL,73),
+(252,29,7,'2026-08-05 08:09:44','2026-08-05','2026-08',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-05 08:09:44','2026-08-05 08:09:44',NULL,NULL,73),
+(253,29,8,'2026-08-05 08:09:44','2026-08-05','2026-08',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-05 08:09:44','2026-08-05 08:09:44',NULL,NULL,73),
+(254,29,9,'2026-08-05 08:09:44','2026-08-05','2026-08',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-05 08:09:44','2026-08-05 08:09:44',NULL,NULL,73),
+(255,29,10,'2026-08-05 08:09:44','2026-08-05','2026-08',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-05 08:09:44','2026-08-05 08:09:44',NULL,NULL,73),
+(261,39,6,'2026-08-06 08:24:05','2026-08-06','2026-08',22,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-06 08:24:05','2026-08-06 08:24:05',NULL,NULL,76),
+(262,39,7,'2026-08-06 08:24:05','2026-08-06','2026-08',22,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-06 08:24:05','2026-08-06 08:24:05',NULL,NULL,76),
+(263,39,8,'2026-08-06 08:24:05','2026-08-06','2026-08',22,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-06 08:24:05','2026-08-06 08:24:05',NULL,NULL,76),
+(264,39,9,'2026-08-06 08:24:05','2026-08-06','2026-08',22,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-06 08:24:05','2026-08-06 08:24:05',NULL,NULL,76),
+(265,39,10,'2026-08-06 08:24:05','2026-08-06','2026-08',22,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-06 08:24:05','2026-08-06 08:24:05',NULL,NULL,76),
+(266,39,6,'2026-08-06 09:06:20','2026-08-06','2026-08',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-06 09:06:20','2026-08-06 09:06:20',NULL,NULL,77),
+(267,39,7,'2026-08-06 09:06:20','2026-08-06','2026-08',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-06 09:06:20','2026-08-06 09:06:20',NULL,NULL,77),
+(268,39,8,'2026-08-06 09:06:20','2026-08-06','2026-08',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-06 09:06:20','2026-08-06 09:06:20',NULL,NULL,77),
+(269,39,9,'2026-08-06 09:06:20','2026-08-06','2026-08',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-06 09:06:20','2026-08-06 09:06:20',NULL,NULL,77),
+(270,39,10,'2026-08-06 09:06:20','2026-08-06','2026-08',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-06 09:06:20','2026-08-06 09:06:20',NULL,NULL,77),
+(285,29,6,'2026-08-10 04:42:46','2026-08-10','2026-08',0,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-10 04:42:46','2026-08-10 04:42:46',NULL,NULL,83),
+(286,29,7,'2026-08-10 04:42:46','2026-08-10','2026-08',0,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-10 04:42:46','2026-08-10 04:42:46',NULL,NULL,83),
+(287,29,8,'2026-08-10 04:42:46','2026-08-10','2026-08',0,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-10 04:42:46','2026-08-10 04:42:46',NULL,NULL,83),
+(288,29,9,'2026-08-10 04:42:46','2026-08-10','2026-08',0,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-10 04:42:46','2026-08-10 04:42:46',NULL,NULL,83),
+(289,29,10,'2026-08-10 04:42:46','2026-08-10','2026-08',0,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-10 04:42:46','2026-08-10 04:42:46',NULL,NULL,83),
+(290,29,6,'2026-08-10 06:00:24','2026-08-10','2026-08',4,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-10 06:00:24','2026-08-10 06:00:24',NULL,NULL,84),
+(291,29,7,'2026-08-10 06:00:24','2026-08-10','2026-08',4,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-10 06:00:24','2026-08-10 06:00:24',NULL,NULL,84),
+(292,29,8,'2026-08-10 06:00:24','2026-08-10','2026-08',4,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-10 06:00:24','2026-08-10 06:00:24',NULL,NULL,84),
+(293,29,9,'2026-08-10 06:00:24','2026-08-10','2026-08',4,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-10 06:00:24','2026-08-10 06:00:24',NULL,NULL,84),
+(294,29,10,'2026-08-10 06:00:24','2026-08-10','2026-08',4,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-10 06:00:24','2026-08-10 06:00:24',NULL,NULL,84),
+(414,39,6,'2026-08-31 13:54:01','2026-08-31','2026-08',390,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-31 13:54:01','2026-08-31 13:54:01',NULL,NULL,121),
+(415,39,7,'2026-08-31 13:54:01','2026-08-31','2026-08',390,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-31 13:54:01','2026-08-31 13:54:01',NULL,NULL,121),
+(416,39,8,'2026-08-31 13:54:01','2026-08-31','2026-08',390,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-31 13:54:01','2026-08-31 13:54:01',NULL,NULL,121),
+(417,39,9,'2026-08-31 13:54:01','2026-08-31','2026-08',390,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-31 13:54:01','2026-08-31 13:54:01',NULL,NULL,121),
+(418,39,10,'2026-08-31 13:54:01','2026-08-31','2026-08',390,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-08-31 13:54:01','2026-08-31 13:54:01',NULL,NULL,121),
+(419,62,6,'2026-09-01 06:57:44','2026-09-01','2026-09',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 06:57:44','2026-09-01 06:57:44',NULL,NULL,123),
+(420,62,7,'2026-09-01 06:57:44','2026-09-01','2026-09',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 06:57:44','2026-09-01 06:57:44',NULL,NULL,123),
+(421,62,8,'2026-09-01 06:57:44','2026-09-01','2026-09',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 06:57:44','2026-09-01 06:57:44',NULL,NULL,123),
+(422,62,9,'2026-09-01 06:57:44','2026-09-01','2026-09',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 06:57:44','2026-09-01 06:57:44',NULL,NULL,123),
+(423,62,10,'2026-09-01 06:57:44','2026-09-01','2026-09',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 06:57:44','2026-09-01 06:57:44',NULL,NULL,123),
+(424,65,6,'2026-09-01 07:33:34','2026-09-01','2026-09',35,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 07:33:34','2026-09-01 07:33:34',NULL,NULL,124),
+(425,65,7,'2026-09-01 07:33:34','2026-09-01','2026-09',35,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 07:33:34','2026-09-01 07:33:34',NULL,NULL,124),
+(426,65,8,'2026-09-01 07:33:34','2026-09-01','2026-09',35,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 07:33:34','2026-09-01 07:33:34',NULL,NULL,124),
+(427,65,9,'2026-09-01 07:33:34','2026-09-01','2026-09',35,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 07:33:34','2026-09-01 07:33:34',NULL,NULL,124),
+(428,65,10,'2026-09-01 07:33:34','2026-09-01','2026-09',35,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 07:33:34','2026-09-01 07:33:34',NULL,NULL,124),
+(429,62,6,'2026-09-01 07:38:08','2026-09-01','2026-09',4,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 07:38:08','2026-09-01 07:38:08',NULL,NULL,125),
+(430,62,7,'2026-09-01 07:38:08','2026-09-01','2026-09',4,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 07:38:08','2026-09-01 07:38:08',NULL,NULL,125),
+(431,62,8,'2026-09-01 07:38:08','2026-09-01','2026-09',4,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 07:38:08','2026-09-01 07:38:08',NULL,NULL,125),
+(432,62,9,'2026-09-01 07:38:08','2026-09-01','2026-09',4,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 07:38:08','2026-09-01 07:38:08',NULL,NULL,125),
+(433,62,10,'2026-09-01 07:38:08','2026-09-01','2026-09',4,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-01 07:38:08','2026-09-01 07:38:08',NULL,NULL,125),
+(434,39,6,'2026-09-02 05:25:05','2026-09-02','2026-09',24,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-02 05:25:05','2026-09-02 05:25:05',NULL,NULL,126),
+(435,39,7,'2026-09-02 05:25:05','2026-09-02','2026-09',24,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-02 05:25:05','2026-09-02 05:25:05',NULL,NULL,126),
+(436,39,8,'2026-09-02 05:25:05','2026-09-02','2026-09',24,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-02 05:25:05','2026-09-02 05:25:05',NULL,NULL,126),
+(437,39,9,'2026-09-02 05:25:05','2026-09-02','2026-09',24,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-02 05:25:05','2026-09-02 05:25:05',NULL,NULL,126),
+(438,39,10,'2026-09-02 05:25:05','2026-09-02','2026-09',24,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-02 05:25:05','2026-09-02 05:25:05',NULL,NULL,126),
+(439,39,6,'2026-09-03 06:18:58','2026-09-03','2026-09',56,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 06:18:58','2026-09-03 06:18:58',NULL,NULL,128),
+(440,39,7,'2026-09-03 06:18:58','2026-09-03','2026-09',56,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 06:18:58','2026-09-03 06:18:58',NULL,NULL,128),
+(441,39,8,'2026-09-03 06:18:58','2026-09-03','2026-09',56,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 06:18:58','2026-09-03 06:18:58',NULL,NULL,128),
+(442,39,9,'2026-09-03 06:18:58','2026-09-03','2026-09',56,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 06:18:58','2026-09-03 06:18:58',NULL,NULL,128),
+(443,39,10,'2026-09-03 06:18:58','2026-09-03','2026-09',56,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 06:18:58','2026-09-03 06:18:58',NULL,NULL,128),
+(444,39,6,'2026-09-03 06:56:13','2026-09-03','2026-09',37,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 06:56:13','2026-09-03 06:56:13',NULL,NULL,129),
+(445,39,7,'2026-09-03 06:56:13','2026-09-03','2026-09',37,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 06:56:13','2026-09-03 06:56:13',NULL,NULL,129),
+(446,39,8,'2026-09-03 06:56:13','2026-09-03','2026-09',37,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 06:56:13','2026-09-03 06:56:13',NULL,NULL,129),
+(447,39,9,'2026-09-03 06:56:13','2026-09-03','2026-09',37,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 06:56:13','2026-09-03 06:56:13',NULL,NULL,129),
+(448,39,10,'2026-09-03 06:56:13','2026-09-03','2026-09',37,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 06:56:13','2026-09-03 06:56:13',NULL,NULL,129),
+(449,39,6,'2026-09-03 07:34:02','2026-09-03','2026-09',37,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 07:34:02','2026-09-03 07:34:02',NULL,NULL,130),
+(450,39,7,'2026-09-03 07:34:02','2026-09-03','2026-09',37,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 07:34:02','2026-09-03 07:34:02',NULL,NULL,130),
+(451,39,8,'2026-09-03 07:34:02','2026-09-03','2026-09',37,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 07:34:02','2026-09-03 07:34:02',NULL,NULL,130),
+(452,39,9,'2026-09-03 07:34:02','2026-09-03','2026-09',37,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 07:34:02','2026-09-03 07:34:02',NULL,NULL,130),
+(453,39,10,'2026-09-03 07:34:02','2026-09-03','2026-09',37,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 07:34:02','2026-09-03 07:34:02',NULL,NULL,130),
+(454,39,6,'2026-09-03 07:45:39','2026-09-03','2026-09',11,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 07:45:39','2026-09-03 07:45:39',NULL,NULL,131),
+(455,39,7,'2026-09-03 07:45:39','2026-09-03','2026-09',11,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 07:45:39','2026-09-03 07:45:39',NULL,NULL,131),
+(456,39,8,'2026-09-03 07:45:39','2026-09-03','2026-09',11,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 07:45:39','2026-09-03 07:45:39',NULL,NULL,131),
+(457,39,9,'2026-09-03 07:45:39','2026-09-03','2026-09',11,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 07:45:39','2026-09-03 07:45:39',NULL,NULL,131),
+(458,39,10,'2026-09-03 07:45:39','2026-09-03','2026-09',11,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-03 07:45:39','2026-09-03 07:45:39',NULL,NULL,131),
+(459,39,6,'2026-09-05 06:26:47','2026-09-05','2026-09',14,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 06:26:47','2026-09-05 06:26:47',NULL,NULL,133),
+(460,39,7,'2026-09-05 06:26:47','2026-09-05','2026-09',14,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 06:26:47','2026-09-05 06:26:47',NULL,NULL,133),
+(461,39,8,'2026-09-05 06:26:47','2026-09-05','2026-09',14,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 06:26:47','2026-09-05 06:26:47',NULL,NULL,133),
+(462,39,9,'2026-09-05 06:26:47','2026-09-05','2026-09',14,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 06:26:47','2026-09-05 06:26:47',NULL,NULL,133),
+(463,39,10,'2026-09-05 06:26:47','2026-09-05','2026-09',14,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 06:26:47','2026-09-05 06:26:47',NULL,NULL,133),
+(464,39,6,'2026-09-05 06:40:06','2026-09-05','2026-09',13,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 06:40:06','2026-09-05 06:40:06',NULL,NULL,134),
+(465,39,7,'2026-09-05 06:40:06','2026-09-05','2026-09',13,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 06:40:06','2026-09-05 06:40:06',NULL,NULL,134),
+(466,39,8,'2026-09-05 06:40:06','2026-09-05','2026-09',13,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 06:40:06','2026-09-05 06:40:06',NULL,NULL,134),
+(467,39,9,'2026-09-05 06:40:06','2026-09-05','2026-09',13,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 06:40:06','2026-09-05 06:40:06',NULL,NULL,134),
+(468,39,10,'2026-09-05 06:40:06','2026-09-05','2026-09',13,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 06:40:06','2026-09-05 06:40:06',NULL,NULL,134),
+(469,39,6,'2026-09-05 07:25:12','2026-09-05','2026-09',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 07:25:12','2026-09-05 07:25:12',NULL,NULL,135),
+(470,39,7,'2026-09-05 07:25:12','2026-09-05','2026-09',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 07:25:12','2026-09-05 07:25:12',NULL,NULL,135),
+(471,39,8,'2026-09-05 07:25:12','2026-09-05','2026-09',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 07:25:12','2026-09-05 07:25:12',NULL,NULL,135),
+(472,39,9,'2026-09-05 07:25:12','2026-09-05','2026-09',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 07:25:12','2026-09-05 07:25:12',NULL,NULL,135),
+(473,39,10,'2026-09-05 07:25:12','2026-09-05','2026-09',45,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 07:25:12','2026-09-05 07:25:12',NULL,NULL,135),
+(474,39,6,'2026-09-05 08:15:43','2026-09-05','2026-09',50,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 08:15:43','2026-09-05 08:15:43',NULL,NULL,136),
+(475,39,7,'2026-09-05 08:15:43','2026-09-05','2026-09',50,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 08:15:43','2026-09-05 08:15:43',NULL,NULL,136),
+(476,39,8,'2026-09-05 08:15:43','2026-09-05','2026-09',50,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 08:15:43','2026-09-05 08:15:43',NULL,NULL,136),
+(477,39,9,'2026-09-05 08:15:43','2026-09-05','2026-09',50,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 08:15:43','2026-09-05 08:15:43',NULL,NULL,136),
+(478,39,10,'2026-09-05 08:15:43','2026-09-05','2026-09',50,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-05 08:15:43','2026-09-05 08:15:43',NULL,NULL,136),
+(479,39,6,'2026-09-08 05:18:17','2026-09-08','2026-09',47,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 05:18:17','2026-09-08 05:18:17',NULL,NULL,138),
+(480,39,7,'2026-09-08 05:18:17','2026-09-08','2026-09',47,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 05:18:17','2026-09-08 05:18:17',NULL,NULL,138),
+(481,39,8,'2026-09-08 05:18:17','2026-09-08','2026-09',47,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 05:18:17','2026-09-08 05:18:17',NULL,NULL,138),
+(482,39,9,'2026-09-08 05:18:17','2026-09-08','2026-09',47,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 05:18:17','2026-09-08 05:18:17',NULL,NULL,138),
+(483,39,10,'2026-09-08 05:18:17','2026-09-08','2026-09',47,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 05:18:17','2026-09-08 05:18:17',NULL,NULL,138),
+(484,39,6,'2026-09-08 07:16:44','2026-09-08','2026-09',118,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 07:16:44','2026-09-08 07:16:44',NULL,NULL,139),
+(485,39,9,'2026-09-08 07:16:44','2026-09-08','2026-09',118,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 07:16:44','2026-09-08 07:16:44',NULL,NULL,139),
+(486,39,10,'2026-09-08 07:16:44','2026-09-08','2026-09',118,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 07:16:44','2026-09-08 07:16:44',NULL,NULL,139),
+(487,39,6,'2026-09-08 08:13:53','2026-09-08','2026-09',56,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 08:13:53','2026-09-08 08:13:53',NULL,NULL,140),
+(488,39,7,'2026-09-08 08:13:53','2026-09-08','2026-09',56,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 08:13:53','2026-09-08 08:13:53',NULL,NULL,140),
+(489,39,8,'2026-09-08 08:13:53','2026-09-08','2026-09',56,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 08:13:53','2026-09-08 08:13:53',NULL,NULL,140),
+(490,39,9,'2026-09-08 08:13:53','2026-09-08','2026-09',56,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 08:13:53','2026-09-08 08:13:53',NULL,NULL,140),
+(491,39,10,'2026-09-08 08:13:53','2026-09-08','2026-09',56,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 08:13:53','2026-09-08 08:13:53',NULL,NULL,140),
+(492,39,6,'2026-09-08 08:43:53','2026-09-08','2026-09',29,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 08:43:53','2026-09-08 08:43:53',NULL,NULL,141),
+(493,39,7,'2026-09-08 08:43:53','2026-09-08','2026-09',29,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 08:43:53','2026-09-08 08:43:53',NULL,NULL,141),
+(494,39,8,'2026-09-08 08:43:53','2026-09-08','2026-09',29,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 08:43:53','2026-09-08 08:43:53',NULL,NULL,141),
+(495,39,9,'2026-09-08 08:43:53','2026-09-08','2026-09',29,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 08:43:53','2026-09-08 08:43:53',NULL,NULL,141),
+(496,39,10,'2026-09-08 08:43:53','2026-09-08','2026-09',29,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-08 08:43:53','2026-09-08 08:43:53',NULL,NULL,141),
+(497,39,6,'2026-09-09 07:20:54','2026-09-09','2026-09',51,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 07:20:54','2026-09-09 07:20:54',NULL,NULL,143),
+(498,39,7,'2026-09-09 07:20:54','2026-09-09','2026-09',51,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 07:20:54','2026-09-09 07:20:54',NULL,NULL,143),
+(499,39,8,'2026-09-09 07:20:54','2026-09-09','2026-09',51,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 07:20:55','2026-09-09 07:20:55',NULL,NULL,143),
+(500,39,9,'2026-09-09 07:20:54','2026-09-09','2026-09',51,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 07:20:55','2026-09-09 07:20:55',NULL,NULL,143),
+(501,39,10,'2026-09-09 07:20:54','2026-09-09','2026-09',51,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 07:20:55','2026-09-09 07:20:55',NULL,NULL,143),
+(502,39,6,'2026-09-09 08:01:15','2026-09-09','2026-09',40,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 08:01:15','2026-09-09 08:01:15',NULL,NULL,144),
+(503,39,7,'2026-09-09 08:01:15','2026-09-09','2026-09',40,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 08:01:15','2026-09-09 08:01:15',NULL,NULL,144),
+(504,39,8,'2026-09-09 08:01:15','2026-09-09','2026-09',40,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 08:01:15','2026-09-09 08:01:15',NULL,NULL,144),
+(505,39,9,'2026-09-09 08:01:15','2026-09-09','2026-09',40,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 08:01:15','2026-09-09 08:01:15',NULL,NULL,144),
+(506,39,10,'2026-09-09 08:01:15','2026-09-09','2026-09',40,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 08:01:15','2026-09-09 08:01:15',NULL,NULL,144),
+(507,39,6,'2026-09-09 08:34:48','2026-09-09','2026-09',33,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 08:34:48','2026-09-09 08:34:48',NULL,NULL,145),
+(508,39,8,'2026-09-09 08:34:48','2026-09-09','2026-09',33,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 08:34:48','2026-09-09 08:34:48',NULL,NULL,145),
+(509,39,9,'2026-09-09 08:34:48','2026-09-09','2026-09',33,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 08:34:48','2026-09-09 08:34:48',NULL,NULL,145),
+(510,39,10,'2026-09-09 08:34:48','2026-09-09','2026-09',33,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-09 08:34:48','2026-09-09 08:34:48',NULL,NULL,145),
+(511,39,6,'2026-09-10 07:04:45','2026-09-10','2026-09',73,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-10 07:04:45','2026-09-10 07:04:45',NULL,NULL,147),
+(512,39,7,'2026-09-10 07:04:45','2026-09-10','2026-09',73,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-10 07:04:45','2026-09-10 07:04:45',NULL,NULL,147),
+(513,39,8,'2026-09-10 07:04:45','2026-09-10','2026-09',73,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-10 07:04:45','2026-09-10 07:04:45',NULL,NULL,147),
+(514,39,9,'2026-09-10 07:04:45','2026-09-10','2026-09',73,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-10 07:04:45','2026-09-10 07:04:45',NULL,NULL,147),
+(515,39,10,'2026-09-10 07:04:45','2026-09-10','2026-09',73,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-10 07:04:45','2026-09-10 07:04:45',NULL,NULL,147),
+(516,17,6,'2026-09-15 07:33:32','2026-09-15','2026-09',104,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-15 07:33:32','2026-09-15 07:33:32',NULL,NULL,150),
+(517,17,7,'2026-09-15 07:33:32','2026-09-15','2026-09',104,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-15 07:33:32','2026-09-15 07:33:32',NULL,NULL,150),
+(518,17,8,'2026-09-15 07:33:32','2026-09-15','2026-09',104,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-15 07:33:32','2026-09-15 07:33:32',NULL,NULL,150),
+(519,17,9,'2026-09-15 07:33:32','2026-09-15','2026-09',104,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-15 07:33:32','2026-09-15 07:33:32',NULL,NULL,150),
+(520,17,10,'2026-09-15 07:33:32','2026-09-15','2026-09',104,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-15 07:33:32','2026-09-15 07:33:32',NULL,NULL,150),
+(521,39,6,'2026-09-16 08:04:56','2026-09-16','2026-09',175,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-16 08:04:56','2026-09-16 08:04:56',NULL,NULL,152),
+(522,39,7,'2026-09-16 08:04:56','2026-09-16','2026-09',175,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-16 08:04:56','2026-09-16 08:04:56',NULL,NULL,152),
+(523,39,8,'2026-09-16 08:04:56','2026-09-16','2026-09',175,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-16 08:04:56','2026-09-16 08:04:56',NULL,NULL,152),
+(524,39,9,'2026-09-16 08:04:56','2026-09-16','2026-09',175,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-16 08:04:56','2026-09-16 08:04:56',NULL,NULL,152),
+(525,39,10,'2026-09-16 08:04:56','2026-09-16','2026-09',175,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-16 08:04:56','2026-09-16 08:04:56',NULL,NULL,152),
+(526,39,6,'2026-09-17 07:35:58','2026-09-17','2026-09',76,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-17 07:35:58','2026-09-17 07:35:58',NULL,NULL,154),
+(527,39,7,'2026-09-17 07:35:58','2026-09-17','2026-09',76,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-17 07:35:58','2026-09-17 07:35:58',NULL,NULL,154),
+(528,39,8,'2026-09-17 07:35:58','2026-09-17','2026-09',76,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-17 07:35:58','2026-09-17 07:35:58',NULL,NULL,154),
+(529,39,9,'2026-09-17 07:35:58','2026-09-17','2026-09',76,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-17 07:35:58','2026-09-17 07:35:58',NULL,NULL,154),
+(530,39,10,'2026-09-17 07:35:58','2026-09-17','2026-09',76,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-17 07:35:58','2026-09-17 07:35:58',NULL,NULL,154),
+(531,71,6,'2026-09-18 07:35:10','2026-09-18','2026-09',102,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 07:35:10','2026-09-18 07:35:10',NULL,NULL,156),
+(532,71,7,'2026-09-18 07:35:10','2026-09-18','2026-09',102,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 07:35:10','2026-09-18 07:35:10',NULL,NULL,156),
+(533,71,8,'2026-09-18 07:35:10','2026-09-18','2026-09',102,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 07:35:10','2026-09-18 07:35:10',NULL,NULL,156),
+(534,71,9,'2026-09-18 07:35:10','2026-09-18','2026-09',102,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 07:35:10','2026-09-18 07:35:10',NULL,NULL,156),
+(535,71,10,'2026-09-18 07:35:10','2026-09-18','2026-09',102,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 07:35:10','2026-09-18 07:35:10',NULL,NULL,156),
+(536,71,6,'2026-09-18 09:38:02','2026-09-18','2026-09',122,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 09:38:02','2026-09-18 09:38:02',NULL,NULL,157),
+(537,71,8,'2026-09-18 09:38:02','2026-09-18','2026-09',122,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 09:38:02','2026-09-18 09:38:02',NULL,NULL,157),
+(538,71,9,'2026-09-18 09:38:02','2026-09-18','2026-09',122,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 09:38:02','2026-09-18 09:38:02',NULL,NULL,157),
+(539,71,6,'2026-09-18 09:44:55','2026-09-18','2026-09',6,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 09:44:55','2026-09-18 09:44:55',NULL,NULL,158),
+(540,71,7,'2026-09-18 09:44:55','2026-09-18','2026-09',6,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 09:44:55','2026-09-18 09:44:55',NULL,NULL,158),
+(541,71,8,'2026-09-18 09:44:55','2026-09-18','2026-09',6,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 09:44:55','2026-09-18 09:44:55',NULL,NULL,158),
+(542,71,9,'2026-09-18 09:44:55','2026-09-18','2026-09',6,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 09:44:55','2026-09-18 09:44:55',NULL,NULL,158),
+(543,71,10,'2026-09-18 09:44:55','2026-09-18','2026-09',6,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-18 09:44:55','2026-09-18 09:44:55',NULL,NULL,158),
+(544,17,6,'2026-09-21 05:38:09','2026-09-21','2026-09',32,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 05:38:09','2026-09-21 05:38:09',NULL,NULL,161),
+(545,17,7,'2026-09-21 05:38:09','2026-09-21','2026-09',32,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 05:38:09','2026-09-21 05:38:09',NULL,NULL,161),
+(546,17,8,'2026-09-21 05:38:09','2026-09-21','2026-09',32,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 05:38:09','2026-09-21 05:38:09',NULL,NULL,161),
+(547,17,9,'2026-09-21 05:38:09','2026-09-21','2026-09',32,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 05:38:09','2026-09-21 05:38:09',NULL,NULL,161),
+(548,17,10,'2026-09-21 05:38:09','2026-09-21','2026-09',32,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 05:38:09','2026-09-21 05:38:09',NULL,NULL,161),
+(549,17,6,'2026-09-21 06:04:08','2026-09-21','2026-09',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 06:04:08','2026-09-21 06:04:08',NULL,NULL,162),
+(550,17,7,'2026-09-21 06:04:08','2026-09-21','2026-09',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 06:04:08','2026-09-21 06:04:08',NULL,NULL,162),
+(551,17,8,'2026-09-21 06:04:08','2026-09-21','2026-09',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 06:04:08','2026-09-21 06:04:08',NULL,NULL,162),
+(552,17,9,'2026-09-21 06:04:08','2026-09-21','2026-09',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 06:04:08','2026-09-21 06:04:08',NULL,NULL,162),
+(553,17,10,'2026-09-21 06:04:08','2026-09-21','2026-09',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 06:04:08','2026-09-21 06:04:08',NULL,NULL,162),
+(554,17,6,'2026-09-21 07:03:23','2026-09-21','2026-09',21,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 07:03:23','2026-09-21 07:03:23',NULL,NULL,163),
+(555,17,7,'2026-09-21 07:03:23','2026-09-21','2026-09',21,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 07:03:23','2026-09-21 07:03:23',NULL,NULL,163),
+(556,17,8,'2026-09-21 07:03:23','2026-09-21','2026-09',21,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-21 07:03:23','2026-09-21 07:03:23',NULL,NULL,163),
+(557,39,6,'2026-09-22 05:55:54','2026-09-22','2026-09',44,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 05:55:54','2026-09-22 05:55:54',NULL,NULL,165),
+(558,39,7,'2026-09-22 05:55:54','2026-09-22','2026-09',44,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 05:55:54','2026-09-22 05:55:54',NULL,NULL,165),
+(559,39,8,'2026-09-22 05:55:54','2026-09-22','2026-09',44,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 05:55:54','2026-09-22 05:55:54',NULL,NULL,165),
+(560,39,9,'2026-09-22 05:55:54','2026-09-22','2026-09',44,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 05:55:54','2026-09-22 05:55:54',NULL,NULL,165),
+(561,39,10,'2026-09-22 05:55:54','2026-09-22','2026-09',44,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 05:55:54','2026-09-22 05:55:54',NULL,NULL,165),
+(562,39,6,'2026-09-22 06:31:35','2026-09-22','2026-09',35,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 06:31:35','2026-09-22 06:31:35',NULL,NULL,166),
+(563,39,7,'2026-09-22 06:31:35','2026-09-22','2026-09',35,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 06:31:35','2026-09-22 06:31:35',NULL,NULL,166),
+(564,39,8,'2026-09-22 06:31:35','2026-09-22','2026-09',35,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 06:31:35','2026-09-22 06:31:35',NULL,NULL,166),
+(565,39,9,'2026-09-22 06:31:35','2026-09-22','2026-09',35,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 06:31:35','2026-09-22 06:31:35',NULL,NULL,166),
+(566,39,10,'2026-09-22 06:31:35','2026-09-22','2026-09',35,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 06:31:35','2026-09-22 06:31:35',NULL,NULL,166),
+(567,39,6,'2026-09-22 07:22:11','2026-09-22','2026-09',50,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 07:22:11','2026-09-22 07:22:11',NULL,NULL,167),
+(568,39,7,'2026-09-22 07:22:11','2026-09-22','2026-09',50,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 07:22:11','2026-09-22 07:22:11',NULL,NULL,167),
+(569,39,8,'2026-09-22 07:22:11','2026-09-22','2026-09',50,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 07:22:11','2026-09-22 07:22:11',NULL,NULL,167),
+(570,39,9,'2026-09-22 07:22:11','2026-09-22','2026-09',50,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 07:22:11','2026-09-22 07:22:11',NULL,NULL,167),
+(571,39,6,'2026-09-22 08:48:27','2026-09-22','2026-09',86,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 08:48:27','2026-09-22 08:48:27',NULL,NULL,168),
+(572,39,7,'2026-09-22 08:48:27','2026-09-22','2026-09',86,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 08:48:27','2026-09-22 08:48:27',NULL,NULL,168),
+(573,39,8,'2026-09-22 08:48:27','2026-09-22','2026-09',86,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 08:48:27','2026-09-22 08:48:27',NULL,NULL,168),
+(574,39,9,'2026-09-22 08:48:27','2026-09-22','2026-09',86,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 08:48:27','2026-09-22 08:48:27',NULL,NULL,168),
+(575,39,10,'2026-09-22 08:48:27','2026-09-22','2026-09',86,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-22 08:48:27','2026-09-22 08:48:27',NULL,NULL,168),
+(576,29,6,'2026-09-26 07:07:44','2026-09-26','2026-09',69,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-26 07:07:44','2026-09-26 07:07:44',NULL,NULL,171),
+(577,29,7,'2026-09-26 07:07:44','2026-09-26','2026-09',69,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-26 07:07:44','2026-09-26 07:07:44',NULL,NULL,171),
+(578,29,8,'2026-09-26 07:07:44','2026-09-26','2026-09',69,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-26 07:07:44','2026-09-26 07:07:44',NULL,NULL,171),
+(579,29,9,'2026-09-26 07:07:44','2026-09-26','2026-09',69,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-26 07:07:44','2026-09-26 07:07:44',NULL,NULL,171),
+(580,29,10,'2026-09-26 07:07:44','2026-09-26','2026-09',69,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-26 07:07:44','2026-09-26 07:07:44',NULL,NULL,171),
+(581,26,6,'2026-09-29 05:31:35','2026-09-29','2026-09',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 05:31:35','2026-09-29 05:31:35',NULL,NULL,174),
+(582,26,7,'2026-09-29 05:31:35','2026-09-29','2026-09',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 05:31:35','2026-09-29 05:31:35',NULL,NULL,174),
+(583,26,8,'2026-09-29 05:31:35','2026-09-29','2026-09',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 05:31:35','2026-09-29 05:31:35',NULL,NULL,174),
+(584,26,9,'2026-09-29 05:31:35','2026-09-29','2026-09',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 05:31:35','2026-09-29 05:31:35',NULL,NULL,174),
+(585,26,10,'2026-09-29 05:31:35','2026-09-29','2026-09',25,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 05:31:35','2026-09-29 05:31:35',NULL,NULL,174),
+(586,26,6,'2026-09-29 06:00:19','2026-09-29','2026-09',28,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 06:00:19','2026-09-29 06:00:19',NULL,NULL,175),
+(587,26,7,'2026-09-29 06:00:19','2026-09-29','2026-09',28,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 06:00:19','2026-09-29 06:00:19',NULL,NULL,175),
+(588,26,8,'2026-09-29 06:00:19','2026-09-29','2026-09',28,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 06:00:19','2026-09-29 06:00:19',NULL,NULL,175),
+(589,26,9,'2026-09-29 06:00:19','2026-09-29','2026-09',28,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 06:00:19','2026-09-29 06:00:19',NULL,NULL,175),
+(590,26,10,'2026-09-29 06:00:19','2026-09-29','2026-09',28,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 06:00:19','2026-09-29 06:00:19',NULL,NULL,175),
+(591,26,6,'2026-09-29 06:42:50','2026-09-29','2026-09',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 06:42:50','2026-09-29 06:42:50',NULL,NULL,176),
+(592,26,7,'2026-09-29 06:42:50','2026-09-29','2026-09',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 06:42:50','2026-09-29 06:42:50',NULL,NULL,176),
+(593,26,8,'2026-09-29 06:42:50','2026-09-29','2026-09',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 06:42:50','2026-09-29 06:42:50',NULL,NULL,176),
+(594,26,9,'2026-09-29 06:42:50','2026-09-29','2026-09',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 06:42:50','2026-09-29 06:42:50',NULL,NULL,176),
+(595,26,10,'2026-09-29 06:42:50','2026-09-29','2026-09',42,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 06:42:50','2026-09-29 06:42:50',NULL,NULL,176),
+(596,26,6,'2026-09-29 07:30:32','2026-09-29','2026-09',47,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 07:30:32','2026-09-29 07:30:32',NULL,NULL,177),
+(597,26,7,'2026-09-29 07:30:32','2026-09-29','2026-09',47,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 07:30:32','2026-09-29 07:30:32',NULL,NULL,177),
+(598,26,8,'2026-09-29 07:30:32','2026-09-29','2026-09',47,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 07:30:32','2026-09-29 07:30:32',NULL,NULL,177),
+(599,26,9,'2026-09-29 07:30:32','2026-09-29','2026-09',47,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 07:30:32','2026-09-29 07:30:32',NULL,NULL,177),
+(600,26,10,'2026-09-29 07:30:32','2026-09-29','2026-09',47,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-29 07:30:32','2026-09-29 07:30:32',NULL,NULL,177),
+(601,17,6,'2026-09-30 15:03:59','2026-09-30','2026-09',367,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-30 15:03:59','2026-09-30 15:03:59',NULL,NULL,179),
+(602,17,7,'2026-09-30 15:03:59','2026-09-30','2026-09',367,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-30 15:03:59','2026-09-30 15:03:59',NULL,NULL,179),
+(603,17,8,'2026-09-30 15:03:59','2026-09-30','2026-09',367,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-30 15:03:59','2026-09-30 15:03:59',NULL,NULL,179),
+(604,17,9,'2026-09-30 15:03:59','2026-09-30','2026-09',367,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-30 15:03:59','2026-09-30 15:03:59',NULL,NULL,179),
+(605,17,10,'2026-09-30 15:03:59','2026-09-30','2026-09',367,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-09-30 15:03:59','2026-09-30 15:03:59',NULL,NULL,179),
+(606,39,6,'2026-10-01 06:01:57','2026-10-01','2026-10',62,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 06:01:57','2026-10-01 06:01:57',NULL,NULL,181),
+(607,39,7,'2026-10-01 06:01:57','2026-10-01','2026-10',62,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 06:01:57','2026-10-01 06:01:57',NULL,NULL,181),
+(608,39,8,'2026-10-01 06:01:57','2026-10-01','2026-10',62,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 06:01:57','2026-10-01 06:01:57',NULL,NULL,181),
+(609,39,9,'2026-10-01 06:01:57','2026-10-01','2026-10',62,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 06:01:57','2026-10-01 06:01:57',NULL,NULL,181),
+(610,39,10,'2026-10-01 06:01:57','2026-10-01','2026-10',62,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 06:01:57','2026-10-01 06:01:57',NULL,NULL,181),
+(611,39,6,'2026-10-01 06:55:37','2026-10-01','2026-10',53,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 06:55:37','2026-10-01 06:55:37',NULL,NULL,182),
+(612,39,7,'2026-10-01 06:55:37','2026-10-01','2026-10',53,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 06:55:37','2026-10-01 06:55:37',NULL,NULL,182),
+(613,39,8,'2026-10-01 06:55:37','2026-10-01','2026-10',53,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 06:55:37','2026-10-01 06:55:37',NULL,NULL,182),
+(614,39,9,'2026-10-01 06:55:37','2026-10-01','2026-10',53,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 06:55:37','2026-10-01 06:55:37',NULL,NULL,182),
+(615,39,10,'2026-10-01 06:55:37','2026-10-01','2026-10',53,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 06:55:37','2026-10-01 06:55:37',NULL,NULL,182),
+(616,39,6,'2026-10-01 07:23:02','2026-10-01','2026-10',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 07:23:02','2026-10-01 07:23:02',NULL,NULL,183),
+(617,39,7,'2026-10-01 07:23:02','2026-10-01','2026-10',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 07:23:02','2026-10-01 07:23:02',NULL,NULL,183),
+(618,39,8,'2026-10-01 07:23:02','2026-10-01','2026-10',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 07:23:02','2026-10-01 07:23:02',NULL,NULL,183),
+(619,39,9,'2026-10-01 07:23:02','2026-10-01','2026-10',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 07:23:02','2026-10-01 07:23:02',NULL,NULL,183),
+(620,39,10,'2026-10-01 07:23:02','2026-10-01','2026-10',27,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 07:23:02','2026-10-01 07:23:02',NULL,NULL,183),
+(621,39,6,'2026-10-01 08:04:26','2026-10-01','2026-10',41,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 08:04:26','2026-10-01 08:04:26',NULL,NULL,184),
+(622,39,7,'2026-10-01 08:04:26','2026-10-01','2026-10',41,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 08:04:26','2026-10-01 08:04:26',NULL,NULL,184),
+(623,39,8,'2026-10-01 08:04:26','2026-10-01','2026-10',41,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 08:04:26','2026-10-01 08:04:26',NULL,NULL,184),
+(624,39,9,'2026-10-01 08:04:26','2026-10-01','2026-10',41,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 08:04:26','2026-10-01 08:04:26',NULL,NULL,184),
+(625,39,10,'2026-10-01 08:04:26','2026-10-01','2026-10',41,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 08:04:26','2026-10-01 08:04:26',NULL,NULL,184),
+(626,39,6,'2026-10-01 08:17:00','2026-10-01','2026-10',12,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 08:17:00','2026-10-01 08:17:00',NULL,NULL,185),
+(627,39,7,'2026-10-01 08:17:00','2026-10-01','2026-10',12,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 08:17:00','2026-10-01 08:17:00',NULL,NULL,185),
+(628,39,8,'2026-10-01 08:17:00','2026-10-01','2026-10',12,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 08:17:00','2026-10-01 08:17:00',NULL,NULL,185),
+(629,39,9,'2026-10-01 08:17:00','2026-10-01','2026-10',12,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 08:17:00','2026-10-01 08:17:00',NULL,NULL,185),
+(630,39,10,'2026-10-01 08:17:00','2026-10-01','2026-10',12,0,0,'detailing',0,NULL,22,'Session completed via presentation.','','','submitted','2026-10-01 08:17:00','2026-10-01 08:17:00',NULL,NULL,185);
+/*!40000 ALTER TABLE `visits` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2026-10-03  6:14:38
